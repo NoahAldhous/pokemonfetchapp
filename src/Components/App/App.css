@@ -1,5 +1,7 @@
 .App{
-  background-color:#222224;
+  --bg-color: #f50001;
+  --primary-color: #000412;
+  background-color:var(--bg-color);
   height: 100vh;
   width:100vw;
   display: flex;
@@ -8,33 +10,56 @@
   justify-content: space-around;
 }
 
+.pokemon-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.pokemon-info-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .loading-text{
-  color: #ee1515;
+  color: var(--primary-color);
   font-family: 'DotGothic16';
   letter-spacing: 2px;
 }
 
 .heading{
-  color: #ee1515;
+  color: var(--primary-color);
   font-family: 'DotGothic16';
   letter-spacing: 2px;
   padding: 0;
   margin: 0;
 }
 
+.input-field{
+  border: 1px solid green;
+  border-radius: 15px;
+  text-align: center;
+}
+
 .pokemon-name{
-  color: #ee1515;
+  color: var(--primary-color);
+  font-family: 'DotGothic16';
+  letter-spacing: 2px;
+}
+
+.pokemon-move{
+  color: var(--primary-color);
   font-family: 'DotGothic16';
   letter-spacing: 2px;
 }
 
 .pokemon-button{
-  background-color: #ee1515;
-  color: #222224;
+  background-color: var(--bg-color);
+  color: var(--primary-color);
   font-family: 'DotGothic16';
   letter-spacing: 2px;
   font-weight: light;
-  border: 1px solid #222224;
+  border: 1px solid var(--primary-color);
   border-radius: 15px;
   cursor: pointer;
   transition: 0.5s;
@@ -43,7 +68,7 @@
 }
 
 .pokemon-button:hover{
-  background-color: #222224;
-  color:#ee1515;
-  border: 1px solid #ee1515;
+  background-color: var(--primary-color);
+  color:var(--bg-color);
+  border: 1px solid var(--bg-color);
 }

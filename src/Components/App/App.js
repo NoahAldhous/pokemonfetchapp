@@ -4,39 +4,61 @@ import  Image  from '../Image/Image.js'
 
 function App() {
 
-  const [pokemon, setPokemon ] = useState('')
+  const [pokemon1, setPokemon1 ] = useState(null);
+  const [pokemon2, setPokemon2 ] = useState(null);
 
-  async function getPokemon(){
+  async function getPokemon1(){
     let ranNum = Math.floor(Math.random() * 906);
     let res = await fetch(`https://pokeapi.co/api/v2/pokemon/${ranNum}`);
     let data = await res.json();
-    console.log(data)
-    setPokemon(data)
+    setPokemon1(data)
+  }
+
+  async function getPokemon2(){
+    let ranNum = Math.floor(Math.random() * 906);
+    let res = await fetch(`https://pokeapi.co/api/v2/pokemon/${ranNum}`);
+    let data = await res.json();
+    setPokemon2(data)
   }
 
   useEffect(() => {
-    getPokemon(); 
+    getPokemon1(); 
+    getPokemon2(); 
   }, []);
 
-  if(pokemon === ''){
+  function handleCLick(){
+    getPokemon1(); 
+    getPokemon2(); 
+  }
+
+  if(pokemon1 && pokemon2){
+   
+    return (
+      <div className="App">
+        <h1 className= 'heading'> Pokefetch</h1>
+        <section className = "pokemon-container">
+          <section className = "pokemon-info-container">
+            <Image pokemon = {pokemon1}/>
+            <h2 className = 'pokemon-name'> {pokemon1.name.toUpperCase()} </h2>
+            <h3 className = 'pokemon-move'> {pokemon1.moves[Math.floor(Math.random() * pokemon1.moves.length)].move.name.toUpperCase()}</h3>
+          </section>
+          <section className = "pokemon-info-container">
+            <Image pokemon = {pokemon2}/>
+            <h2 className = 'pokemon-name'> {pokemon2.name.toUpperCase()} </h2>
+            <h3 className = 'pokemon-move'> {pokemon2.moves[Math.floor(Math.random() * pokemon2.moves.length)].move.name.toUpperCase()}</h3>
+          </section>
+        </section>
+        <button className = 'pokemon-button' onClick = {handleCLick}> CLICK ME</button>
+      </div>
+    );
+  }
+  
+  else{
     return (
       <div className = "App">
         <p className = "loading-text"> FETCHING POKEMON...</p>
       </div>
     )
-  }
-  
-  else{
-    return (
-      <div className="App">
-        <h1 className= 'heading'> Pokefetch</h1>
-
-          <Image pokemon = {pokemon}/>
-
-        <h2 className = 'pokemon-name'> {pokemon.name.toUpperCase()} </h2>
-        <button className = 'pokemon-button' onClick = {getPokemon}> CLICK ME</button>
-      </div>
-    );
   }
 }
 
