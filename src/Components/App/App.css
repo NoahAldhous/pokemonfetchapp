@@ -13,12 +13,16 @@
 .pokemon-container{
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .pokemon-info-container{
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 3px dashed var(--primary-color);
+  border-radius: 15px;
+  margin: 1%;
 }
 
 .loading-text{
@@ -59,7 +63,7 @@
   font-family: 'DotGothic16';
   letter-spacing: 2px;
   font-weight: light;
-  border: 1px solid var(--primary-color);
+  border: 2px dashed var(--primary-color);
   border-radius: 15px;
   cursor: pointer;
   transition: 0.5s;
@@ -70,5 +74,5 @@
 .pokemon-button:hover{
   background-color: var(--primary-color);
   color:var(--bg-color);
-  border: 1px solid var(--bg-color);
+  border: 2px dashed var(--bg-color);
 }
