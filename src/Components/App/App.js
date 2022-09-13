@@ -35,7 +35,7 @@ function App() {
    
     return (
       <div className="App">
-        <h1 className= 'heading'> Pokefetch</h1>
+        <h1 className= 'heading'> Pokebrawlz</h1>
         <section className = "pokemon-container">
           <section className = "pokemon-info-container">
             <Image pokemon = {pokemon1}/>
