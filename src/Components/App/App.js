@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import  Image  from '../Image/Image.js'
 
 function App() {
 
@@ -17,14 +18,26 @@ function App() {
     getPokemon(); 
   }, []);
 
-  return (
-    <div className="App">
-      <h1> isaa Pokemon app</h1>
-      <img src = {pokemon.sprites.front_default} alt = {`front sprite of ${pokemon.name}`}/>
-      <h2> {pokemon.name} </h2>
-      <button onClick = {getPokemon}> click me</button>
-    </div>
-  );
+  if(pokemon === ''){
+    return (
+      <div className = "App">
+        <p className = "loading-text"> FETCHING POKEMON...</p>
+      </div>
+    )
+  }
+  
+  else{
+    return (
+      <div className="App">
+        <h1 className= 'heading'> Pokefetch</h1>
+
+          <Image pokemon = {pokemon}/>
+
+        <h2 className = 'pokemon-name'> {pokemon.name.toUpperCase()} </h2>
+        <button className = 'pokemon-button' onClick = {getPokemon}> CLICK ME</button>
+      </div>
+    );
+  }
 }
 
 export default App;

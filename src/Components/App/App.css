@@ -1,5 +1,49 @@
 .App{
-  background-color: red;
+  background-color:#222224;
   height: 100vh;
   width:100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.loading-text{
+  color: #ee1515;
+  font-family: 'DotGothic16';
+  letter-spacing: 2px;
+}
+
+.heading{
+  color: #ee1515;
+  font-family: 'DotGothic16';
+  letter-spacing: 2px;
+  padding: 0;
+  margin: 0;
+}
+
+.pokemon-name{
+  color: #ee1515;
+  font-family: 'DotGothic16';
+  letter-spacing: 2px;
+}
+
+.pokemon-button{
+  background-color: #ee1515;
+  color: #222224;
+  font-family: 'DotGothic16';
+  letter-spacing: 2px;
+  font-weight: light;
+  border: 1px solid #222224;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.5s;
+  padding: 0.5% 2% 0.5% 2%;
+  font-size: 3vh;
+}
+
+.pokemon-button:hover{
+  background-color: #222224;
+  color:#ee1515;
+  border: 1px solid #ee1515;
 }
