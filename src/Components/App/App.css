@@ -1,6 +1,7 @@
 .App{
-  --bg-color: #f50001;
+  --bg-color: #cc0000;
   --primary-color: #000412;
+  --secondary-color: #ff0000;
   background-color:var(--bg-color);
   height: 100vh;
   width:100vw;
@@ -14,15 +15,28 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
+  /* border: 1px solid blue; */
+  width: 100%;
+}
+
+.versus-text{
+  font-family: 'DotGothic16';
+  font-size: 2vw;
+  letter-spacing: 2px;
+  margin: 2%;
+  font-weight: bolder;
 }
 
 .pokemon-info-container{
+  background-color: var(--secondary-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 3px dashed var(--primary-color);
   border-radius: 15px;
   margin: 1%;
+  width: 20%;
 }
 
 .loading-text{
@@ -39,26 +53,15 @@
   margin: 0;
 }
 
-.input-field{
-  border: 1px solid green;
-  border-radius: 15px;
-  text-align: center;
-}
-
 .pokemon-name{
   color: var(--primary-color);
   font-family: 'DotGothic16';
   letter-spacing: 2px;
-}
-
-.pokemon-move{
-  color: var(--primary-color);
-  font-family: 'DotGothic16';
-  letter-spacing: 2px;
+  font-size: 150%;
 }
 
 .pokemon-button{
-  background-color: var(--bg-color);
+  background-color: var(--secondary-color);
   color: var(--primary-color);
   font-family: 'DotGothic16';
   letter-spacing: 2px;
@@ -73,6 +76,21 @@
 
 .pokemon-button:hover{
   background-color: var(--primary-color);
-  color:var(--bg-color);
-  border: 2px dashed var(--bg-color);
+  color: var(--secondary-color);
+  border: 2px dashed var(--secondary-color);
+}
+
+.score-container{
+  width: 20%;
+  /* border: 1px solid yellow; */
+  display: flex;
+  justify-content: center;
+}
+
+.score-display{
+  color: var(--primary-color);
+  font-family: 'DotGothic16';
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 2vw;
 }

@@ -1,11 +1,15 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import  Image  from '../Image/Image.js'
+import MoveButton from '../MoveButton/MoveButton';
 
 function App() {
 
   const [pokemon1, setPokemon1 ] = useState(null);
   const [pokemon2, setPokemon2 ] = useState(null);
+  const [playerScore, setPlayerScore] = useState(0);
+  const [computerScore, setComputerScore] = useState(0);
+
 
   async function getPokemon1(){
     let ranNum = Math.floor(Math.random() * 906);
@@ -37,18 +41,31 @@ function App() {
       <div className="App">
         <h1 className= 'heading'> Pokebrawlz</h1>
         <section className = "pokemon-container">
-          <section className = "pokemon-info-container">
-            <Image pokemon = {pokemon1}/>
-            <h2 className = 'pokemon-name'> {pokemon1.name.toUpperCase()} </h2>
-            <h3 className = 'pokemon-move'> {pokemon1.moves[Math.floor(Math.random() * pokemon1.moves.length)].move.name.toUpperCase()}</h3>
+          <section className = 'score-container'>
+            <div className = 'score-display'> PLAYER:{playerScore} </div>
           </section>
           <section className = "pokemon-info-container">
-            <Image pokemon = {pokemon2}/>
+            <h2 className = 'pokemon-name'> {pokemon1.name.toUpperCase()} </h2>
+            <Image pokemon = {pokemon1}/>
+            <MoveButton pokemon = {pokemon1}/>
+            <MoveButton pokemon = {pokemon1}/>
+            <MoveButton pokemon = {pokemon1}/>
+            <MoveButton pokemon = {pokemon1}/>
+          </section>
+          <div className = 'versus-text'> VS </div>
+          <section className = "pokemon-info-container">
             <h2 className = 'pokemon-name'> {pokemon2.name.toUpperCase()} </h2>
-            <h3 className = 'pokemon-move'> {pokemon2.moves[Math.floor(Math.random() * pokemon2.moves.length)].move.name.toUpperCase()}</h3>
+            <Image pokemon = {pokemon2}/>
+            <MoveButton pokemon = {pokemon2}/>
+            <MoveButton pokemon = {pokemon2}/>
+            <MoveButton pokemon = {pokemon2}/>
+            <MoveButton pokemon = {pokemon2}/>
+          </section>
+          <section className = 'score-container'>
+            <div className = 'score-display'> CPU:{computerScore} </div>
           </section>
         </section>
-        <button className = 'pokemon-button' onClick = {handleCLick}> CLICK ME</button>
+        <button className = 'pokemon-button' onClick = {handleCLick}> RESET</button>
       </div>
     );
   }
