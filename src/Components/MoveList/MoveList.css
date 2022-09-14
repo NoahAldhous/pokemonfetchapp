@@ -18,3 +18,13 @@
     color: var(--secondary-color);
     border: 2px dashed var(--secondary-color);
   }
+
+  .activity-log{
+    width: 10px;
+    height: 8vh;
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    border: 2px solid blue;
+    background-color: red;
+}

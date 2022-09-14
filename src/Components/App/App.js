@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import  Image  from '../Image/Image.js'
-import MoveButton from '../MoveButton/MoveButton';
+import MoveList from '../MoveList/MoveList';
 
 function App() {
 
@@ -9,6 +9,7 @@ function App() {
   const [pokemon2, setPokemon2 ] = useState(null);
   const [playerScore, setPlayerScore] = useState(0);
   const [computerScore, setComputerScore] = useState(0);
+  const [playerMove, setPlayerMove] = useState('');
 
 
   async function getPokemon1(){
@@ -42,24 +43,19 @@ function App() {
         <h1 className= 'heading'> Pokebrawlz</h1>
         <section className = "pokemon-container">
           <section className = 'score-container'>
+            <div className = 'move-display'> MOVE CHOSEN : {playerMove}</div>
             <div className = 'score-display'> PLAYER:{playerScore} </div>
           </section>
           <section className = "pokemon-info-container">
             <h2 className = 'pokemon-name'> {pokemon1.name.toUpperCase()} </h2>
             <Image pokemon = {pokemon1}/>
-            <MoveButton pokemon = {pokemon1}/>
-            <MoveButton pokemon = {pokemon1}/>
-            <MoveButton pokemon = {pokemon1}/>
-            <MoveButton pokemon = {pokemon1}/>
+            <MoveList pokemon = {pokemon1} setPlayerMove = {setPlayerMove}/>
           </section>
           <div className = 'versus-text'> VS </div>
           <section className = "pokemon-info-container">
             <h2 className = 'pokemon-name'> {pokemon2.name.toUpperCase()} </h2>
             <Image pokemon = {pokemon2}/>
-            <MoveButton pokemon = {pokemon2}/>
-            <MoveButton pokemon = {pokemon2}/>
-            <MoveButton pokemon = {pokemon2}/>
-            <MoveButton pokemon = {pokemon2}/>
+            <MoveList pokemon = {pokemon2}/>
           </section>
           <section className = 'score-container'>
             <div className = 'score-display'> CPU:{computerScore} </div>

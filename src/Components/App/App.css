@@ -84,7 +84,17 @@
   width: 20%;
   /* border: 1px solid yellow; */
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.move-display{
+  color: var(--primary-color);
+  font-family: 'DotGothic16';
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 1.5vw;
 }
 
 .score-display{
