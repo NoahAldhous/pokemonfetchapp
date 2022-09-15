@@ -11,6 +11,7 @@
     margin: 3%;
     text-align: center;
     transition: 0.5s;
+    background-color: #ff0000;
   }
   
   .pokemon-move:hover{

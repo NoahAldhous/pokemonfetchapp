@@ -1,5 +1,8 @@
 body {
-  background-color:#222224;
+  --bg-color: #cc0000;
+  --primary-color: #000412;
+  --secondary-color: #ff0000;
+  background-color: var(--primary-color);
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

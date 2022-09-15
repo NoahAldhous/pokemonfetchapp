@@ -7,9 +7,10 @@ function App() {
 
   const [pokemon1, setPokemon1 ] = useState(null);
   const [pokemon2, setPokemon2 ] = useState(null);
-  const [playerScore, setPlayerScore] = useState(0);
-  const [computerScore, setComputerScore] = useState(0);
+  const [playerScore] = useState(0);
+  const [computerScore] = useState(0);
   const [playerMove, setPlayerMove] = useState('');
+  // const [computerMove, setComputerMove] = useState('');
 
 
   async function getPokemon1(){
@@ -43,7 +44,7 @@ function App() {
         <h1 className= 'heading'> Pokebrawlz</h1>
         <section className = "pokemon-container">
           <section className = 'score-container'>
-            <div className = 'move-display'> MOVE CHOSEN : {playerMove}</div>
+            <div className = 'move-display'> MOVE CHOSEN : <br/> {playerMove}</div>
             <div className = 'score-display'> PLAYER:{playerScore} </div>
           </section>
           <section className = "pokemon-info-container">
@@ -61,7 +62,10 @@ function App() {
             <div className = 'score-display'> CPU:{computerScore} </div>
           </section>
         </section>
-        <button className = 'pokemon-button' onClick = {handleCLick}> RESET</button>
+        <section className = 'pokemon-button-container'>
+          <button className = 'pokemon-button'> FIGHT</button>
+          <button className = 'pokemon-button' onClick = {handleCLick}> RESET</button>
+        </section>
       </div>
     );
   }
