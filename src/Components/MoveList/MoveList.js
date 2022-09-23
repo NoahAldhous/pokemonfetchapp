@@ -19,6 +19,7 @@ export default function MoveList({pokemon, setPlayerMove}){
 
     useEffect(() => {
         getMoves()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [pokemon]);
     
 
