@@ -6,48 +6,62 @@ import ComputerMoveList from '../MoveList/ComputerMoveList';
 
 function App() {
 
-  const [pokemon1, setPokemon1 ] = useState(null);
-  const [pokemon2, setPokemon2 ] = useState(null);
+  const [playerPokemon, setPlayerPokemon ] = useState(null);
+  const [computerPokemon, setComputerPokemon ] = useState(null);
   const [playerScore] = useState(0);
   const [computerScore] = useState(0);
   const [playerMove, setPlayerMove] = useState('');
-  const [computerMove, setComputerMove] = useState({});
+  const [computerMove, setComputerMove] = useState('');
 
 
-  async function getPokemon1(){
+  async function getPlayerPokemon(){
     let ranNum = Math.floor(Math.random() * 906);
     let res = await fetch(`https://pokeapi.co/api/v2/pokemon/${ranNum}`);
     let data = await res.json();
-    setPokemon1(data)
+    setPlayerPokemon(data)
   }
 
-  async function getPokemon2(){
+  async function getComputerPokemon(){
     let ranNum = Math.floor(Math.random() * 906);
     let res = await fetch(`https://pokeapi.co/api/v2/pokemon/${ranNum}`);
     let data = await res.json();
-    setPokemon2(data)
+    setComputerPokemon(data)
   }
 
   useEffect(() => {
-    getPokemon1(); 
-    getPokemon2(); 
+    getPlayerPokemon(); 
+    getComputerPokemon(); 
   }, []);
 
   function handleReset(){
-    getPokemon1(); 
-    getPokemon2(); 
+    getPlayerPokemon(); 
+    getComputerPokemon(); 
   }
 
   function handleFight(){
-    if(playerMove){
-    console.log('hello')
-    }
+    if(playerMove && computerMove){
+      console.log(
+        `${playerPokemon.name} used ${playerMove.name}, ${computerPokemon.name} used ${computerMove.name} `
+      )
+      if(playerMove.power === computerMove.power){
+        console.log("It's a draw");
+      }
+      else if(playerMove.power < computerMove.power){
+        console.log('CPU Wins!');
+      }
+      else if(playerMove.power > computerMove.power){
+        console.log('Player Wins!');
+      }
+      else{
+        console.log('something went wrong')
+      }        
+      }
     else{
       console.log("need to choose a move, my dude")
     }
   }
 
-  if(pokemon1 && pokemon2){
+  if(playerPokemon && computerPokemon){
    
     return (
       <div className="App">
@@ -59,15 +73,15 @@ function App() {
             <div className = 'score-display'> PLAYER:{playerScore} </div>
           </section>
           <section className = "pokemon-info-container">
-            <h2 className = 'pokemon-name'> {pokemon1.name.toUpperCase()} </h2>
-            <Image pokemon = {pokemon1}/>
-            <PlayerMoveList pokemon = {pokemon1} setPlayerMove = {setPlayerMove}/>
+            <h2 className = 'pokemon-name'> {playerPokemon.name.toUpperCase()} </h2>
+            <Image pokemon = {playerPokemon}/>
+            <PlayerMoveList pokemon = {playerPokemon} setPlayerMove = {setPlayerMove}/>
           </section>
           <div className = 'versus-text'> VS </div>
           <section className = "pokemon-info-container">
-            <h2 className = 'pokemon-name'> {pokemon2.name.toUpperCase()} </h2>
-            <Image pokemon = {pokemon2}/>
-            <ComputerMoveList pokemon = {pokemon2} setComputerMove = {setComputerMove}/>
+            <h2 className = 'pokemon-name'> {computerPokemon.name.toUpperCase()} </h2>
+            <Image pokemon = {computerPokemon}/>
+            <ComputerMoveList pokemon = {computerPokemon} setComputerMove = {setComputerMove}/>
           </section>
           <section className = 'score-container'>
             <div className = 'score-display'> CPU:{computerScore} </div>
