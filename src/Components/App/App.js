@@ -1,7 +1,8 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import  Image  from '../Image/Image.js'
-import MoveList from '../MoveList/MoveList';
+import PlayerMoveList from '../MoveList/PlayerMoveList';
+import ComputerMoveList from '../MoveList/ComputerMoveList';
 
 function App() {
 
@@ -9,8 +10,8 @@ function App() {
   const [pokemon2, setPokemon2 ] = useState(null);
   const [playerScore] = useState(0);
   const [computerScore] = useState(0);
-  const [playerMove, setPlayerMove] = useState('');
-  // const [computerMove, setComputerMove] = useState('');
+  const [playerMove, setPlayerMove] = useState({});
+  const [computerMove, setComputerMove] = useState({});
 
 
   async function getPokemon1(){
@@ -44,22 +45,25 @@ function App() {
         <h1 className= 'heading'> Pokebrawlz</h1>
         <section className = "pokemon-container">
           <section className = 'score-container'>
-            <div className = 'move-display'> MOVE CHOSEN : <br/> {playerMove}</div>
+            <div className = 'move-display'> MOVE CHOSEN : <br/> {playerMove.name}</div>
+            <div className = 'move-display'> POWER : <br/> {playerMove.power}</div>
             <div className = 'score-display'> PLAYER:{playerScore} </div>
           </section>
           <section className = "pokemon-info-container">
             <h2 className = 'pokemon-name'> {pokemon1.name.toUpperCase()} </h2>
             <Image pokemon = {pokemon1}/>
-            <MoveList pokemon = {pokemon1} setPlayerMove = {setPlayerMove}/>
+            <PlayerMoveList pokemon = {pokemon1} setPlayerMove = {setPlayerMove}/>
           </section>
           <div className = 'versus-text'> VS </div>
           <section className = "pokemon-info-container">
             <h2 className = 'pokemon-name'> {pokemon2.name.toUpperCase()} </h2>
             <Image pokemon = {pokemon2}/>
-            <MoveList pokemon = {pokemon2}/>
+            <ComputerMoveList pokemon = {pokemon2} setComputerMove = {setComputerMove}/>
           </section>
           <section className = 'score-container'>
             <div className = 'score-display'> CPU:{computerScore} </div>
+            <div className = 'move-display'> MOVE CHOSEN : <br/> {computerMove.name}</div>
+            <div className = 'move-display'> POWER : <br/> {computerMove.power}</div>
           </section>
         </section>
         <section className = 'pokemon-button-container'>

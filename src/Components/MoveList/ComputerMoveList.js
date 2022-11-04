@@ -1,8 +1,8 @@
-import './MoveList.css';
+import './PlayerMoveList.css';
 import {useState, useEffect} from 'react'
 
 
-export default function MoveList({pokemon, setPlayerMove}){
+export default function MoveList({pokemon, setComputerMove}){
     const [moves, setMoves] = useState([])
     
 
@@ -26,8 +26,14 @@ export default function MoveList({pokemon, setPlayerMove}){
     async function getMoveData(move){
         let res = await fetch(move.url);
         let data = await res.json();
+        if(data.power === null){
+            data.power = 0;
+        }
         console.log(`name:${data.name} power:${data.power}`)
-        setPlayerMove(data.name);
+        setComputerMove({
+            name: data.name,
+            power: data.power
+        });
     }
 
 
