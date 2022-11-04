@@ -10,8 +10,17 @@ export default function MoveList({pokemon, setPlayerMove}){
         let moveList = []
         if(pokemon){
             for(let i = 0 ; i < 4 ; i++){
-                let move = pokemon.moves[Math.floor(Math.random() * pokemon.moves.length)].move;
-                moveList.push(move);
+                let ranNum = Math.floor(Math.random() * pokemon.moves.length);
+                console.log(ranNum);
+                if(pokemon.moves[ranNum].move === undefined){
+                    console.log('this is the problem')
+                }
+                let currentMove = pokemon.moves[Math.floor(Math.random() * pokemon.moves.length)].move;
+                if(currentMove === undefined){
+                    currentMove = "none"
+                    console.log('none')
+                }
+                moveList.push(currentMove);
             }
             setMoves(moveList)
         }

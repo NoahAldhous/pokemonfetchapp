@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import  Image  from '../Image/Image.js'
 import PlayerMoveList from '../MoveList/PlayerMoveList';
 import ComputerMoveList from '../MoveList/ComputerMoveList';
+import Modal from '../Modal/Modal';
 
 function App() {
 
@@ -12,6 +13,9 @@ function App() {
   const [computerScore] = useState(0);
   const [playerMove, setPlayerMove] = useState('');
   const [computerMove, setComputerMove] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+  const [resultsMessage, setResultsMessage] = useState('')
+  const [actionReport, setActionReport] = useState('')
 
 
   async function getPlayerPokemon(){
@@ -34,30 +38,33 @@ function App() {
   }, []);
 
   function handleReset(){
+    setIsOpen(false);
+    setPlayerMove('')
     getPlayerPokemon(); 
     getComputerPokemon(); 
   }
 
   function handleFight(){
     if(playerMove && computerMove){
-      console.log(
+      setIsOpen(true)
+      setActionReport(
         `${playerPokemon.name} used ${playerMove.name}, ${computerPokemon.name} used ${computerMove.name} `
       )
       if(playerMove.power === computerMove.power){
-        console.log("It's a draw");
+        setResultsMessage("It's a draw");
       }
       else if(playerMove.power < computerMove.power){
-        console.log('CPU Wins!');
+        setResultsMessage('CPU Wins!');
       }
       else if(playerMove.power > computerMove.power){
-        console.log('Player Wins!');
+        setResultsMessage('Player Wins!');
       }
       else{
-        console.log('something went wrong')
+        setResultsMessage('something went wrong')
       }        
       }
     else{
-      console.log("need to choose a move, my dude")
+      setResultsMessage("need to choose a move, my dude")
     }
   }
 
@@ -66,6 +73,7 @@ function App() {
     return (
       <div className="App">
         <h1 className= 'heading'> Pokebrawlz</h1>
+        <Modal open = {isOpen} onClose = {handleReset} results = {resultsMessage} actionReport = {actionReport}></Modal>
         <section className = "pokemon-container">
           <section className = 'score-container'>
             <div className = 'move-display'> MOVE CHOSEN : <br/> {playerMove.name}</div>
