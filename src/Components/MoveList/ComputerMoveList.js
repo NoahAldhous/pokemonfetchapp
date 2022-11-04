@@ -14,13 +14,21 @@ export default function MoveList({pokemon, setComputerMove}){
                 moveList.push(move);
             }
             setMoves(moveList)
+            return moves
         }
     }
 
     useEffect(() => {
-        getMoves()
+        getMoves()     
+   
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [pokemon]);
+    
+    useEffect(() => {  
+        getMoveData(moves[Math.floor(Math.random() * moves.length)])
+   
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [moves]);
     
 
     async function getMoveData(move){

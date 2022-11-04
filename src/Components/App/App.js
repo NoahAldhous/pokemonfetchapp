@@ -10,7 +10,7 @@ function App() {
   const [pokemon2, setPokemon2 ] = useState(null);
   const [playerScore] = useState(0);
   const [computerScore] = useState(0);
-  const [playerMove, setPlayerMove] = useState({});
+  const [playerMove, setPlayerMove] = useState('');
   const [computerMove, setComputerMove] = useState({});
 
 
@@ -33,9 +33,18 @@ function App() {
     getPokemon2(); 
   }, []);
 
-  function handleCLick(){
+  function handleReset(){
     getPokemon1(); 
     getPokemon2(); 
+  }
+
+  function handleFight(){
+    if(playerMove){
+    console.log('hello')
+    }
+    else{
+      console.log("need to choose a move, my dude")
+    }
   }
 
   if(pokemon1 && pokemon2){
@@ -67,8 +76,8 @@ function App() {
           </section>
         </section>
         <section className = 'pokemon-button-container'>
-          <button className = 'pokemon-button'> FIGHT</button>
-          <button className = 'pokemon-button' onClick = {handleCLick}> RESET</button>
+          <button className = 'pokemon-button' onClick = {handleFight}> FIGHT</button>
+          <button className = 'pokemon-button' onClick = {handleReset}> RESET</button>
         </section>
       </div>
     );
