@@ -6,12 +6,17 @@ export default function Modal({open, onClose, results, actionReport}){
     } else{
         return (
             <>
-            <div className = "modal-overlay"></div>
+            <div className = "modal-overlay" onClick = {onClose}></div>
             <div className = "modal">
-                {actionReport}
+                <h3 className = "modal-header">BATTLE REPORT</h3>
+                <div className ="modal-report">
+                    {actionReport}
+                </div>
                 <br/>
-                {results}
-                <button onClick = {onClose}>close</button>
+                <div className = "modal-results">
+                    {results}
+                </div>
+                <button className = "close-button" onClick = {onClose}>X</button>
             </div>
             </>
         )
