@@ -3,8 +3,8 @@
 
     STILL TO DO 
         onClick of FIGHT button-
-            Random move chosen by CPU 
-            Displays that move-
+            Random move chosen by CPU ✅
+            Displays that move- ✅
             Determines which pokemon goes first (pokemon.speed)-
                 speed could be a modifer to a random number?
                 highest speed is 180- so maybe make a random number between 1 + 180 and add SPEED MOD?
@@ -14,8 +14,8 @@
                 compares move to HP-
                 if higher, kills the pokemon,
                 if not, both pokemon are wounded, but not defeated (draw)
-            Display all this as a BATTLE LOG MODAL (element that renders on top of all others)
-        Reset.
+            Display all this as a BATTLE LOG MODAL (element that renders on top of all others)✅
+        Reset. ✅
         Help Section (modal display)
         Store Player and CPU score in Local Storage?
         

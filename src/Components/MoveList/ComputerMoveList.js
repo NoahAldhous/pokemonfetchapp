@@ -11,6 +11,12 @@ export default function MoveList({pokemon, setComputerMove}){
         if(pokemon){
             for(let i = 0 ; i < 4 ; i++){
                 let move = pokemon.moves[Math.floor(Math.random() * pokemon.moves.length)].move;
+                for(let i = 0; i < moveList.length; i++){
+                    if(moveList[i] === move){
+                        move = pokemon.moves[Math.floor(Math.random() * pokemon.moves.length)].move;
+                        console.log(move)
+                    }
+                }
                 moveList.push(move);
             }
             setMoves(moveList)
@@ -47,7 +53,7 @@ export default function MoveList({pokemon, setComputerMove}){
 
     return(
         moves.map((move)=>{
-            return <h3 onClick = {function(){getMoveData(move)}} className = 'pokemon-move'> {move.name.toUpperCase()}</h3>
+            return <h3 className = 'pokemon-move'> {move.name.toUpperCase()}</h3>
         }
         )
     )

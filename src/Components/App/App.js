@@ -48,7 +48,7 @@ function App() {
     if(playerMove && computerMove){
       setIsOpen(true)
       setActionReport(
-        `${playerPokemon.name} used ${playerMove.name}, ${computerPokemon.name} used ${computerMove.name} `
+        `${playerPokemon.name.toUpperCase()} used ${playerMove.name.toUpperCase()}, ${computerPokemon.name.toUpperCase()} used ${computerMove.name.toUpperCase()} `
       )
       if(playerMove.power === computerMove.power){
         setResultsMessage("It's a draw");

@@ -29,3 +29,9 @@
     border: 2px solid blue;
     background-color: red;
 }
+
+.active-button{
+  background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: 2px dashed var(--secondary-color);
+}

@@ -3,26 +3,24 @@ import {useState, useEffect} from 'react'
 
 
 export default function MoveList({pokemon, setPlayerMove}){
-    const [moves, setMoves] = useState([])
+    const [moves, setMoves] = useState([]);
+    const [activeButton, setActiveButton] = useState('');
     
 
     function getMoves(){
         let moveList = []
         if(pokemon){
             for(let i = 0 ; i < 4 ; i++){
-                let ranNum = Math.floor(Math.random() * pokemon.moves.length);
-                console.log(ranNum);
-                if(pokemon.moves[ranNum].move === undefined){
-                    console.log('this is the problem')
-                }
                 let currentMove = pokemon.moves[Math.floor(Math.random() * pokemon.moves.length)].move;
-                if(currentMove === undefined){
-                    currentMove = "none"
-                    console.log('none')
+                for(let i = 0; i < moveList.length; i++){
+                    if(moveList[i] === currentMove){
+                        currentMove = pokemon.moves[Math.floor(Math.random() * pokemon.moves.length)].move;
+                        console.log(currentMove)
+                    }
                 }
                 moveList.push(currentMove);
             }
-            setMoves(moveList)
+            setMoves(moveList);
         }
     }
 
@@ -43,12 +41,23 @@ export default function MoveList({pokemon, setPlayerMove}){
             name: data.name,
             power: data.power
         });
+        setActiveButton(move.name);
+        console.log(activeButton);
+        document.querySelectorAll(".pokemon-move").forEach((item) => {
+            item.classList.forEach((className) => {
+                if(className.startsWith('active-button'))
+                item.classList.remove(className);
+            })
+        })
+        document.querySelector(`.${move.name}`).classList.toggle('active-button');
     }
+
+
 
 
     return(
         moves.map((move)=>{
-            return <h3 onClick = {function(){getMoveData(move)}} className = 'pokemon-move'> {move.name.toUpperCase()}</h3>
+            return <h3 onClick = {function(){getMoveData(move)}} className = {['pokemon-move', `${move.name}`].join(' ')}> {move.name.toUpperCase()}</h3>
         }
         )
     )
