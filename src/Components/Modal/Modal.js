@@ -1,6 +1,6 @@
 import './Modal.css'
 
-export default function Modal({open, onClose, results, actionReport}){
+export default function Modal({open, onClose, results, actionReport, speedResult, damageResult}){
     if(!open){
         return null;
     } else{
@@ -11,6 +11,14 @@ export default function Modal({open, onClose, results, actionReport}){
                 <h3 className = "modal-header">BATTLE REPORT</h3>
                 <div className ="modal-report">
                     {actionReport}
+                </div>
+                <br/>
+                <div className ="modal-report">
+                    {speedResult}
+                </div>
+                <br/>
+                <div>
+                    {damageResult}
                 </div>
                 <br/>
                 <div className = "modal-results">

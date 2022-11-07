@@ -43,10 +43,14 @@ export default function MoveList({pokemon, setComputerMove}){
         if(data.power === null){
             data.power = 0;
         }
+        if(data.accuracy === null){
+            data.accuracy = 100;
+        }
         console.log(`name:${data.name} power:${data.power}`)
         setComputerMove({
             name: data.name,
-            power: data.power
+            power: data.power,
+            accuracy: data.accuracy
         });
     }
 

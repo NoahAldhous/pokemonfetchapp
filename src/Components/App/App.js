@@ -4,34 +4,57 @@ import  Image  from '../Image/Image.js'
 import PlayerMoveList from '../MoveList/PlayerMoveList';
 import ComputerMoveList from '../MoveList/ComputerMoveList';
 import Modal from '../Modal/Modal';
+import StatCard from '../StatCard/StatCard';
 
 function App() {
 
+  //player related state
   const [playerPokemon, setPlayerPokemon ] = useState(null);
-  const [computerPokemon, setComputerPokemon ] = useState(null);
   const [playerScore, setPlayerScore] = useState(0);
-  const [computerScore, setComputerScore] = useState(0);
   const [playerMove, setPlayerMove] = useState('');
+  const [chosenMove, setChosenMove] = useState('');
+
+
+  //cpu related state
+  const [computerPokemon, setComputerPokemon ] = useState(null);
+  const [computerScore, setComputerScore] = useState(0);
   const [computerMove, setComputerMove] = useState('');
+
+
+  //battle report related state
   const [isOpen, setIsOpen] = useState(false);
+  const [speedResult, setSpeedResult] = useState('')
   const [resultsMessage, setResultsMessage] = useState('')
   const [actionReport, setActionReport] = useState('')
-  const [chosenMove, setChosenMove] = useState('')
+  const [damageResult, setDamageResult] = useState('')
 
 
   async function getPlayerPokemon(){
     let ranNum = Math.floor(Math.random() * 906);
     let res = await fetch(`https://pokeapi.co/api/v2/pokemon/${ranNum}`);
     let data = await res.json();
-    setPlayerPokemon(data)
-    console.log(playerPokemon)
+    setPlayerPokemon({
+      name : data.name,
+      moves : data.moves,
+      currenthp : data.stats[0].base_stat,
+      hp: data.stats[0].base_stat,
+      speed: data.stats[5].base_stat,
+      image: data.sprites.front_default
+    });
   }
 
   async function getComputerPokemon(){
     let ranNum = Math.floor(Math.random() * 906);
     let res = await fetch(`https://pokeapi.co/api/v2/pokemon/${ranNum}`);
     let data = await res.json();
-    setComputerPokemon(data)
+    setComputerPokemon({
+      name : data.name,
+      moves : data.moves,
+      currenthp : data.stats[0].base_stat,
+      hp: data.stats[0].base_stat,
+      speed: data.stats[5].base_stat,
+      image: data.sprites.front_default
+    })
   }
 
   useEffect(() => {
@@ -46,29 +69,58 @@ function App() {
     setChosenMove('')
     getPlayerPokemon(); 
     getComputerPokemon(); 
+
+  }
+
+  function handleClose(){
+    setIsOpen(false);
+    setPlayerMove('')
+    setChosenMove('')
+    if(playerPokemon.currenthp <= 0 || computerPokemon.currenthp <= 0){
+    getPlayerPokemon(); 
+    getComputerPokemon(); 
+    }
   }
 
   function handleFight(){
     if(chosenMove && computerMove){
       setIsOpen(true)
+
       setActionReport(
         `${playerPokemon.name.toUpperCase()} used ${chosenMove.name.toUpperCase()}, ${computerPokemon.name.toUpperCase()} used ${computerMove.name.toUpperCase()} `
       )
-      if(chosenMove.power === computerMove.power){
-        setResultsMessage("It's a draw");
-      }
-      else if(chosenMove.power < computerMove.power){
-        setResultsMessage('CPU Wins!');
-        setComputerScore(computerScore + 1)
-      }
-      else if(chosenMove.power > computerMove.power){
-        setResultsMessage('Player Wins!');
-        setPlayerScore(playerScore + 1)
-      }
-      else{
-        setResultsMessage('something went wrong')
-      }        
-      }
+
+      //resolve which pokemon acts first
+
+      if(playerPokemon.speed < computerPokemon.speed){
+
+        //COMPUTER ACTS FIRST
+        setSpeedResult(`${computerPokemon.name} acts first!`);
+        if(computerMove.power > 0){
+          playerPokemon.currenthp = (playerPokemon.currenthp - computerMove.power)
+          setDamageResult(`${computerPokemon.name} used ${computerMove.name}, dealing ${computerMove.power} damage!`)
+        }
+        else if(computerMove.power === 0){
+          setDamageResult('special effect happens')
+        }
+      }else if(playerPokemon.speed > computerPokemon.speed){
+
+        //PLAYER ACTS FIRST
+        setSpeedResult(`${playerPokemon.name} acts first!`);
+        if(chosenMove.power > 0){
+          computerPokemon.currenthp = (computerPokemon.currenthp - chosenMove.power)
+          setDamageResult(`${playerPokemon.name} used ${chosenMove.name}, dealing ${chosenMove.power} damage!`)
+        }
+        else if(chosenMove.power === 0){
+          setDamageResult('special effect happens')
+        }
+      }else if(playerPokemon.speed === computerPokemon.speed){
+        let ranNum = Math.floor(Math.random() * 2)
+        if(ranNum === 0){
+        setSpeedResult(`It's close, but`)
+        }
+      }      
+    }
     else{
       setResultsMessage("need to choose a move, my dude")
     }
@@ -79,15 +131,9 @@ function App() {
     return (
       <div className="App">
         <h1 className= 'heading'> Pokebrawlz</h1>
-        <Modal open = {isOpen} onClose = {handleReset} results = {resultsMessage} actionReport = {actionReport}></Modal>
+        <Modal open = {isOpen} onClose = {handleClose} results = {resultsMessage} actionReport = {actionReport} speedResult = {speedResult} damageResult = {damageResult}></Modal>
         <section className = "pokemon-container">
-          <section className = 'move-info-container'>
-            <div className = 'hp-display'> {playerPokemon.stats[0].stat.name.toUpperCase()}: {playerPokemon.stats[0].base_stat}</div>
-            <div className = 'speed-display'> {playerPokemon.stats[5].stat.name.toUpperCase()}: {playerPokemon.stats[5].base_stat}</div>
-            <div className = 'move-name-display'> MOVE CHOSEN: {chosenMove.name}</div>
-            <div className = 'move-accuracy-display'> ACCURACY: {chosenMove.accuracy}</div>
-            <div className = 'move-power-display'> POWER: {chosenMove.power}</div>
-          </section>
+        <StatCard pokemon = {playerPokemon} move = {chosenMove}/>
           <section className = "pokemon-info-container">
             <h2 className = 'pokemon-name'> {playerPokemon.name.toUpperCase()} </h2>
             <Image pokemon = {playerPokemon}/>
@@ -99,12 +145,7 @@ function App() {
             <Image pokemon = {computerPokemon}/>
             <ComputerMoveList pokemon = {computerPokemon} setComputerMove = {setComputerMove}/>
           </section>
-          <section className = 'move-info-container'>
-            <div className = 'score-display'> CPU: {computerScore} </div>
-            <div className = 'move-display'> MOVE CHOSEN: {computerMove.name}</div>
-            <div className = 'move-display'> POWER: {computerMove.power}</div>
-            <div className = 'speed-display'> {computerPokemon.stats[5].stat.name.toUpperCase()}: {computerPokemon.stats[5].base_stat}</div>
-          </section>
+          <StatCard pokemon = {computerPokemon} move = {computerMove}/>
         </section>
         <section className = 'pokemon-button-container'>
           <button className = 'pokemon-button' onClick = {handleFight}> FIGHT</button>

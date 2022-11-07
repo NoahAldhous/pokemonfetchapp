@@ -6,6 +6,6 @@ export default function Image({pokemon}){
             return <p className = 'noImageText'>No image found, sorry!</p>;
 
         default:
-            return <img className = 'pokemon-image' src = {pokemon.sprites.front_default} alt = {`a sprite of ${pokemon.name}`}/>
+            return <img className = 'pokemon-image' src = {pokemon.image} alt = {`a sprite of ${pokemon.name}`}/>
     }
 }
