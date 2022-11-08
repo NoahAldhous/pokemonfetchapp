@@ -1,6 +1,6 @@
 import './Modal.css'
 
-export default function Modal({open, onClose, results, actionReport, speedResult, damageResult}){
+export default function Modal({open, onClose, results, actionReport, speedResult, damageResult, toHitResult}){
     if(!open){
         return null;
     } else{
@@ -15,6 +15,10 @@ export default function Modal({open, onClose, results, actionReport, speedResult
                 <br/>
                 <div className ="modal-report">
                     {speedResult}
+                </div>
+                <br/>
+                <div>
+                    {toHitResult}
                 </div>
                 <br/>
                 <div>

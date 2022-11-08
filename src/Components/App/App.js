@@ -27,7 +27,16 @@ function App() {
   const [resultsMessage, setResultsMessage] = useState('')
   const [actionReport, setActionReport] = useState('')
   const [damageResult, setDamageResult] = useState('')
+  const [toHitResult, setToHitResult] = useState('')
 
+  function resetBattleReport(){
+    setIsOpen(false);
+    setSpeedResult('');
+    setResultsMessage('');
+    setActionReport('');
+    setDamageResult('');
+    setToHitResult('');
+  }
 
   async function getPlayerPokemon(){
     let ranNum = Math.floor(Math.random() * 906);
@@ -64,7 +73,7 @@ function App() {
   }, []);
 
   function handleReset(){
-    setIsOpen(false);
+    resetBattleReport();
     setPlayerMove('')
     setChosenMove('')
     getPlayerPokemon(); 
@@ -73,7 +82,7 @@ function App() {
   }
 
   function handleClose(){
-    setIsOpen(false);
+    resetBattleReport();
     setPlayerMove('')
     setChosenMove('')
     if(playerPokemon.currenthp <= 0 || computerPokemon.currenthp <= 0){
@@ -84,6 +93,7 @@ function App() {
 
   function handleFight(){
     if(chosenMove && computerMove){
+      setResultsMessage('')
       setIsOpen(true)
 
       setActionReport(
@@ -95,25 +105,49 @@ function App() {
       if(playerPokemon.speed < computerPokemon.speed){
 
         //COMPUTER ACTS FIRST
-        setSpeedResult(`${computerPokemon.name} acts first!`);
-        if(computerMove.power > 0){
-          playerPokemon.currenthp = (playerPokemon.currenthp - computerMove.power)
-          setDamageResult(`${computerPokemon.name} used ${computerMove.name}, dealing ${computerMove.power} damage!`)
-        }
-        else if(computerMove.power === 0){
-          setDamageResult('special effect happens')
+        setSpeedResult(`${computerPokemon.name} acts first and uses ${computerMove.name}! ${computerMove.accuracy}% chance to hit.`);
+
+        //DETERMINING IF ATTACK HITS OR MISSES
+        let toHitRoll = Math.floor(Math.random() * 101);
+        //ON HIT
+        if(computerMove.accuracy === 100 || toHitRoll <= computerMove.accuracy){
+          setToHitResult(`The attack hits!`)
+          //DETERMINING DAMAGE EFFECT
+          if(computerMove.power > 0){
+            playerPokemon.currenthp = (playerPokemon.currenthp - computerMove.power)
+            setDamageResult(`${computerPokemon.name}  deals ${computerMove.power} damage to ${playerPokemon.name}!`)
+          }
+          else if(computerMove.power === 0){
+            setDamageResult('special effect happens')
+          }
+        //ON MISS
+        }else if(toHitRoll > computerMove.accuracy){
+          setToHitResult(`The attack misses! ${playerPokemon.name}'s turn!`)
         }
       }else if(playerPokemon.speed > computerPokemon.speed){
 
         //PLAYER ACTS FIRST
-        setSpeedResult(`${playerPokemon.name} acts first!`);
-        if(chosenMove.power > 0){
-          computerPokemon.currenthp = (computerPokemon.currenthp - chosenMove.power)
-          setDamageResult(`${playerPokemon.name} used ${chosenMove.name}, dealing ${chosenMove.power} damage!`)
+        setSpeedResult(`${playerPokemon.name} acts first and uses ${chosenMove.name}! ${chosenMove.accuracy}% chance to hit.`);
+        
+        //DETERMINING IF ATTACK HITS OR MISSES
+        let toHitRoll = Math.floor(Math.random() * 101);
+        //ON HIT
+        if(chosenMove.accuracy === 100 || toHitRoll <= chosenMove.accuracy){
+          setToHitResult(`The attack hits!`)
+          //DETERMINING DAMAGE EFFECT
+          if(chosenMove.power > 0){
+            computerPokemon.currenthp = (computerPokemon.currenthp - chosenMove.power)
+            setDamageResult(`${playerPokemon.name} used ${chosenMove.name}, dealing ${chosenMove.power} damage!`)
+          }
+          else if(chosenMove.power === 0){
+            setDamageResult('special effect happens')
+          }
+        //ON MISS
+        }else if(toHitRoll > chosenMove.accuracy){
+          setToHitResult(`The attack misses! ${computerPokemon.name}'s turn!`)
         }
-        else if(chosenMove.power === 0){
-          setDamageResult('special effect happens')
-        }
+
+        //SPEED IS EQUAL
       }else if(playerPokemon.speed === computerPokemon.speed){
         let ranNum = Math.floor(Math.random() * 2)
         if(ranNum === 0){
@@ -121,7 +155,7 @@ function App() {
         }
       }      
     }
-    else{
+    else if(chosenMove === ""){
       setResultsMessage("need to choose a move, my dude")
     }
   }
@@ -131,7 +165,7 @@ function App() {
     return (
       <div className="App">
         <h1 className= 'heading'> Pokebrawlz</h1>
-        <Modal open = {isOpen} onClose = {handleClose} results = {resultsMessage} actionReport = {actionReport} speedResult = {speedResult} damageResult = {damageResult}></Modal>
+        <Modal open = {isOpen} onClose = {handleClose} results = {resultsMessage} actionReport = {actionReport} speedResult = {speedResult} damageResult = {damageResult} toHitResult = {toHitResult}></Modal>
         <section className = "pokemon-container">
         <StatCard pokemon = {playerPokemon} move = {chosenMove}/>
           <section className = "pokemon-info-container">
