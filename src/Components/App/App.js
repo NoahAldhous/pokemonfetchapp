@@ -5,19 +5,22 @@ import PlayerMoveList from '../MoveList/PlayerMoveList';
 import ComputerMoveList from '../MoveList/ComputerMoveList';
 import Modal from '../Modal/Modal';
 import StatCard from '../StatCard/StatCard';
+import HelpSection from '../HelpSection/HelpSection';
 
 function App() {
+  // help section state 
+  const [wantsHelp, setWantsHelp] = useState(true)
 
   //player related state
   const [playerPokemon, setPlayerPokemon ] = useState(null);
-  const [playerScore, setPlayerScore] = useState(0);
+  //const [playerScore, setPlayerScore] = useState(0);
   const [playerMove, setPlayerMove] = useState('');
   const [chosenMove, setChosenMove] = useState('');
 
 
   //cpu related state
   const [computerPokemon, setComputerPokemon ] = useState(null);
-  const [computerScore, setComputerScore] = useState(0);
+  //const [computerScore, setComputerScore] = useState(0);
   const [computerMove, setComputerMove] = useState('');
 
 
@@ -165,6 +168,8 @@ function App() {
     return (
       <div className="App">
         <h1 className= 'heading'> Pokebrawlz</h1>
+        <button className= 'help-button' onClick = {function(){setWantsHelp(true)}}>?</button>
+        <HelpSection wantsHelp={ wantsHelp } setWantsHelp = {setWantsHelp}/>
         <Modal open = {isOpen} onClose = {handleClose} results = {resultsMessage} actionReport = {actionReport} speedResult = {speedResult} damageResult = {damageResult} toHitResult = {toHitResult}></Modal>
         <section className = "pokemon-container">
         <StatCard pokemon = {playerPokemon} move = {chosenMove}/>

@@ -103,3 +103,16 @@
   padding-left: 1%;
   margin-bottom: 18%;
 }
+
+.help-button{
+  position: fixed;
+  bottom: 1%;
+  right: 1%;
+  color: var(--secondary-color);
+  font-family: 'DotGothic16';
+  font-weight: bold;
+  font-size: 2.5vw;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
