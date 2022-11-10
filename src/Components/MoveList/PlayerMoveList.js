@@ -33,14 +33,14 @@ export default function MoveList({pokemon, playerMove, setPlayerMove, chosenMove
     async function getMoveData(move){
         let res = await fetch(move.url);
         let data = await res.json();
-        console.log(data)
+        // console.log(data)
         if(data.power === null){
             data.power = 0;
         }
         if(data.accuracy === null){
             data.accuracy = 100;
         }
-        console.log(`name:${data.name} power:${data.power}`)
+        // console.log(`name:${data.name} power:${data.power}`)
         setPlayerMove({
             name: data.name,
             power: data.power,
@@ -50,7 +50,7 @@ export default function MoveList({pokemon, playerMove, setPlayerMove, chosenMove
     function handleButtonClick(move, playerMove){
         setChosenMove(playerMove)
         setActiveButton(move.name);
-        console.log(activeButton);
+        // console.log(activeButton);
         document.querySelectorAll(".pokemon-move").forEach((item) => {
             item.classList.forEach((className) => {
                 if(className.startsWith('active-button'))

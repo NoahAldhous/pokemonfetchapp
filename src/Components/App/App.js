@@ -102,11 +102,19 @@ function App() {
       //DETERMING MESSAGE REGARDING WHICH POKEMON ACTS FIRST AND WHICH MOVE IS USED
       setSpeedResult(`${fasterPokemon.name} acts first and uses ${fasterMove.name}! ${fasterMove.accuracy}% chance to hit.`);
 
+      //FIRST TURN
+
       //DETERMINING IF ATTACK HITS OR MISSES
       let toHitRoll = Math.floor(Math.random() * 101);
+      console.log(`roll to hit: ${toHitRoll}`)
+      //ON CRIT
+      if(toHitRoll <= 5 && fasterMove.power > 0){
+        setToHitResult('CRITICAL HIT! THE ATTACK DEALS DOUBLE DAMAGE');
+        slowerPokemon.currenthp = (slowerPokemon.currenthp - fasterMove.power * 2);
+        setDamageResult(`${fasterPokemon.name}  deals ${fasterMove.power * 2} damage to ${slowerPokemon.name}!`) 
 
       //ON HIT
-      if(fasterMove.accuracy === 100 || toHitRoll <= fasterMove.accuracy){
+      }else if(fasterMove.accuracy === 100 || toHitRoll <= fasterMove.accuracy){
         setToHitResult(`The attack hits!`)
 
         //DETERMINING DAMAGE EFFECT
@@ -122,6 +130,9 @@ function App() {
       }else if(toHitRoll > fasterMove.accuracy){
         setToHitResult(`The attack misses! ${slowerPokemon.name}'s turn!`)
       }
+
+      //SECOND TURN
+
 }
 
     if(chosenMove && computerMove){
@@ -129,12 +140,16 @@ function App() {
       setIsOpen(true)
 
       //DETERMINING WHICH POKEMON ACTS FIRST
-      if(playerPokemon.speed < computerPokemon.speed){
+      let playerSpeed = playerPokemon.speed + Math.floor(Math.random() * 180);
+      let computerSpeed = computerPokemon.speed + Math.floor(Math.random() * 180);
+      console.log(`player speed = ${playerSpeed} computer speed = ${computerSpeed}`)
+      if(playerSpeed < computerSpeed){
 
         //COMPUTER ACTS FIRST
         resolveFight(computerPokemon, computerMove, playerPokemon, chosenMove)
        
-      }else if(playerPokemon.speed > computerPokemon.speed){
+      }else if(playerSpeed > computerSpeed){
+        console.log('player acts first!')
 
         //PLAYER ACTS FIRST
         resolveFight(playerPokemon, chosenMove, computerPokemon, computerMove)
@@ -149,6 +164,7 @@ function App() {
     }
     else if(chosenMove === ""){
       setResultsMessage("need to choose a move, my dude")
+      console.log('move needs choosing')
     }
   }
 
