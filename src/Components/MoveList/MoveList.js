@@ -39,17 +39,37 @@ export default function MoveList({pokemon, pokemonMove, setMove, chosenMove, set
         let res = await fetch(move.url);
         let data = await res.json();
         // console.log(data)
-        if(data.power === null){
-            data.power = 0;
+
+        function getSpecial(movePower, damageClass){
+            if(!movePower){
+                switch(damageClass){
+                    case 'status':
+                        return 'defend';
+                    case 'physical':
+                        return 'dodge';
+                    case 'special':
+                        return 'focus'
+                    default: 
+                        return ''
+                    }
+            }
+            else{
+                return ''
+            }
         }
+
         if(data.accuracy === null){
             data.accuracy = 100;
         }
-        // console.log(`name:${data.name} power:${data.power}`)
+        if(data.power === null){
+           data.power = 0
+        }
+
         setMove({
             name: data.name,
             power: data.power,
-            accuracy: data.accuracy
+            accuracy: data.accuracy,
+            special: getSpecial(data.power, data.damage_class.name)
         });
     }
     function handleButtonClick(move, pokemonMove){
@@ -76,7 +96,7 @@ export default function MoveList({pokemon, pokemonMove, setMove, chosenMove, set
             moves.map((move)=>{
                 
                 return <h3 onMouseEnter = {function(){getMoveData(move)}} onMouseLeave = {resetPlayerMove} onClick = {function(){handleButtonClick(move, pokemonMove)}} className = {['pokemon-move', `${move.name}`].join(' ')}>
-                <div className='move-info'>CHANCE TO HIT: {pokemonMove.accuracy}% POWER: {pokemonMove.power}</div>
+                <div className='move-info'>CHANCE TO HIT: {pokemonMove.accuracy}% {pokemonMove.special ? `SPECIAL: ${pokemonMove.special}` : `POWER: ${pokemonMove.power}`}</div>
                 {move.name.toUpperCase()}
                 </h3>
 

@@ -134,7 +134,7 @@ function App() {
 
       //SECOND TURN
 
-}
+    }
 
     if(chosenMove && computerMove){
       setResultsMessage('')
