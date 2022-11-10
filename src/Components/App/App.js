@@ -1,8 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import  Image  from '../Image/Image.js'
-import PlayerMoveList from '../MoveList/PlayerMoveList';
-import ComputerMoveList from '../MoveList/ComputerMoveList';
+import MoveList from '../MoveList/MoveList';
 import Modal from '../Modal/Modal';
 import StatCard from '../StatCard/StatCard';
 import HelpSection from '../HelpSection/HelpSection';
@@ -28,7 +27,6 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [speedResult, setSpeedResult] = useState('')
   const [resultsMessage, setResultsMessage] = useState('')
-  const [actionReport, setActionReport] = useState('')
   const [damageResult, setDamageResult] = useState('')
   const [toHitResult, setToHitResult] = useState('')
 
@@ -36,7 +34,6 @@ function App() {
     setIsOpen(false);
     setSpeedResult('');
     setResultsMessage('');
-    setActionReport('');
     setDamageResult('');
     setToHitResult('');
   }
@@ -51,7 +48,8 @@ function App() {
       currenthp : data.stats[0].base_stat,
       hp: data.stats[0].base_stat,
       speed: data.stats[5].base_stat,
-      image: data.sprites.front_default
+      image: data.sprites.front_default,
+      critChance: 5
     });
   }
 
@@ -65,7 +63,8 @@ function App() {
       currenthp : data.stats[0].base_stat,
       hp: data.stats[0].base_stat,
       speed: data.stats[5].base_stat,
-      image: data.sprites.front_default
+      image: data.sprites.front_default,
+      critChance: 5
     })
   }
 
@@ -81,13 +80,14 @@ function App() {
     setChosenMove('')
     getPlayerPokemon(); 
     getComputerPokemon(); 
-
+    
   }
 
   function handleClose(){
     resetBattleReport();
     setPlayerMove('')
     setChosenMove('')
+    document.querySelector(`.active-button`).classList.toggle('active-button');
     if(playerPokemon.currenthp <= 0 || computerPokemon.currenthp <= 0){
     getPlayerPokemon(); 
     getComputerPokemon(); 
@@ -107,8 +107,9 @@ function App() {
       //DETERMINING IF ATTACK HITS OR MISSES
       let toHitRoll = Math.floor(Math.random() * 101);
       console.log(`roll to hit: ${toHitRoll}`)
+
       //ON CRIT
-      if(toHitRoll <= 5 && fasterMove.power > 0){
+      if(toHitRoll < fasterPokemon.critChance  && fasterMove.power > 0){
         setToHitResult('CRITICAL HIT! THE ATTACK DEALS DOUBLE DAMAGE');
         slowerPokemon.currenthp = (slowerPokemon.currenthp - fasterMove.power * 2);
         setDamageResult(`${fasterPokemon.name}  deals ${fasterMove.power * 2} damage to ${slowerPokemon.name}!`) 
@@ -181,13 +182,13 @@ function App() {
           <section className = "pokemon-info-container">
             <h2 className = 'pokemon-name'> {playerPokemon.name.toUpperCase()} </h2>
             <Image pokemon = {playerPokemon}/>
-            <PlayerMoveList pokemon = {playerPokemon} playerMove = {playerMove} setPlayerMove = {setPlayerMove} chosenMove = {chosenMove} setChosenMove = {setChosenMove}/>
+            <MoveList pokemon = {playerPokemon} pokemonMove = {playerMove} setMove = {setPlayerMove} chosenMove = {chosenMove} setChosenMove = {setChosenMove} isPlayer = {true}/>
           </section>
           <div className = 'versus-text'> VS </div>
           <section className = "pokemon-info-container">
             <h2 className = 'pokemon-name'> {computerPokemon.name.toUpperCase()} </h2>
             <Image pokemon = {computerPokemon}/>
-            <ComputerMoveList pokemon = {computerPokemon} setComputerMove = {setComputerMove}/>
+            <MoveList pokemon = {computerPokemon} setMove = {setComputerMove} isPlayer = {false}/>
           </section>
           <StatCard pokemon = {computerPokemon} move = {computerMove}/>
         </section>
