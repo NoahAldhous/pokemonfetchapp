@@ -94,61 +94,50 @@ function App() {
     }
   }
 
+
   function handleFight(){
+
+    function resolveFight(fasterPokemon, fasterMove, slowerPokemon, slowerMove){
+
+      //DETERMING MESSAGE REGARDING WHICH POKEMON ACTS FIRST AND WHICH MOVE IS USED
+      setSpeedResult(`${fasterPokemon.name} acts first and uses ${fasterMove.name}! ${fasterMove.accuracy}% chance to hit.`);
+
+      //DETERMINING IF ATTACK HITS OR MISSES
+      let toHitRoll = Math.floor(Math.random() * 101);
+
+      //ON HIT
+      if(fasterMove.accuracy === 100 || toHitRoll <= fasterMove.accuracy){
+        setToHitResult(`The attack hits!`)
+
+        //DETERMINING DAMAGE EFFECT
+        if(fasterMove.power > 0){
+          slowerPokemon.currenthp = (slowerPokemon.currenthp - fasterMove.power)
+          setDamageResult(`${fasterPokemon.name}  deals ${fasterMove.power} damage to ${slowerPokemon.name}!`)
+        }
+        //DETERMING SPECIAL EFFECT
+        else if(fasterMove.power === 0){
+          setDamageResult('special effect happens')
+        }
+      //ON MISS
+      }else if(toHitRoll > fasterMove.accuracy){
+        setToHitResult(`The attack misses! ${slowerPokemon.name}'s turn!`)
+      }
+}
+
     if(chosenMove && computerMove){
       setResultsMessage('')
       setIsOpen(true)
 
-      setActionReport(
-        `${playerPokemon.name.toUpperCase()} used ${chosenMove.name.toUpperCase()}, ${computerPokemon.name.toUpperCase()} used ${computerMove.name.toUpperCase()} `
-      )
-
-      //resolve which pokemon acts first
-
+      //DETERMINING WHICH POKEMON ACTS FIRST
       if(playerPokemon.speed < computerPokemon.speed){
 
         //COMPUTER ACTS FIRST
-        setSpeedResult(`${computerPokemon.name} acts first and uses ${computerMove.name}! ${computerMove.accuracy}% chance to hit.`);
-
-        //DETERMINING IF ATTACK HITS OR MISSES
-        let toHitRoll = Math.floor(Math.random() * 101);
-        //ON HIT
-        if(computerMove.accuracy === 100 || toHitRoll <= computerMove.accuracy){
-          setToHitResult(`The attack hits!`)
-          //DETERMINING DAMAGE EFFECT
-          if(computerMove.power > 0){
-            playerPokemon.currenthp = (playerPokemon.currenthp - computerMove.power)
-            setDamageResult(`${computerPokemon.name}  deals ${computerMove.power} damage to ${playerPokemon.name}!`)
-          }
-          else if(computerMove.power === 0){
-            setDamageResult('special effect happens')
-          }
-        //ON MISS
-        }else if(toHitRoll > computerMove.accuracy){
-          setToHitResult(`The attack misses! ${playerPokemon.name}'s turn!`)
-        }
+        resolveFight(computerPokemon, computerMove, playerPokemon, chosenMove)
+       
       }else if(playerPokemon.speed > computerPokemon.speed){
 
         //PLAYER ACTS FIRST
-        setSpeedResult(`${playerPokemon.name} acts first and uses ${chosenMove.name}! ${chosenMove.accuracy}% chance to hit.`);
-        
-        //DETERMINING IF ATTACK HITS OR MISSES
-        let toHitRoll = Math.floor(Math.random() * 101);
-        //ON HIT
-        if(chosenMove.accuracy === 100 || toHitRoll <= chosenMove.accuracy){
-          setToHitResult(`The attack hits!`)
-          //DETERMINING DAMAGE EFFECT
-          if(chosenMove.power > 0){
-            computerPokemon.currenthp = (computerPokemon.currenthp - chosenMove.power)
-            setDamageResult(`${playerPokemon.name} used ${chosenMove.name}, dealing ${chosenMove.power} damage!`)
-          }
-          else if(chosenMove.power === 0){
-            setDamageResult('special effect happens')
-          }
-        //ON MISS
-        }else if(toHitRoll > chosenMove.accuracy){
-          setToHitResult(`The attack misses! ${computerPokemon.name}'s turn!`)
-        }
+        resolveFight(playerPokemon, chosenMove, computerPokemon, computerMove)
 
         //SPEED IS EQUAL
       }else if(playerPokemon.speed === computerPokemon.speed){
@@ -170,7 +159,7 @@ function App() {
         <h1 className= 'heading'> Pokebrawlz</h1>
         <button className= 'help-button' onClick = {function(){setWantsHelp(true)}}>?</button>
         <HelpSection wantsHelp={ wantsHelp } setWantsHelp = {setWantsHelp}/>
-        <Modal open = {isOpen} onClose = {handleClose} results = {resultsMessage} actionReport = {actionReport} speedResult = {speedResult} damageResult = {damageResult} toHitResult = {toHitResult}></Modal>
+        <Modal open = {isOpen} onClose = {handleClose} results = {resultsMessage} speedResult = {speedResult} damageResult = {damageResult} toHitResult = {toHitResult}></Modal>
         <section className = "pokemon-container">
         <StatCard pokemon = {playerPokemon} move = {chosenMove}/>
           <section className = "pokemon-info-container">

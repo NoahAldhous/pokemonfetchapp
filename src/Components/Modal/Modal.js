@@ -1,6 +1,6 @@
 import './Modal.css'
 
-export default function Modal({open, onClose, results, actionReport, speedResult, damageResult, toHitResult}){
+export default function Modal({open, onClose, results, speedResult, damageResult, toHitResult}){
     if(!open){
         return null;
     } else{
@@ -9,9 +9,7 @@ export default function Modal({open, onClose, results, actionReport, speedResult
             <div className = "modal-overlay" onClick = {onClose}></div>
             <div className = "modal">
                 <h3 className = "modal-header">BATTLE REPORT</h3>
-                <div className ="modal-report">
-                    {actionReport}
-                </div>
+
                 <br/>
                 <div className ="modal-report">
                     {speedResult}

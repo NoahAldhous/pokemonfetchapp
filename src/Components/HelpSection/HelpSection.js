@@ -5,7 +5,7 @@ export default function HelpSection({wantsHelp, setWantsHelp}){
        return null;
    }else{
        return <>
-           <div className = 'help-section-overlay'></div>
+           <div className = 'help-section-overlay' onClick = {function(){setWantsHelp(false)}}></div>
            <div className = 'help-section'>
                <h3 className = 'help-section-header'> WELCOME TO POKEBRAWLZ</h3>
                <p className = 'help-section-text'> This is a strategic combat game blah blah blah</p>
