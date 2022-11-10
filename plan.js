@@ -20,13 +20,15 @@
         Condense both player and computer acting first into a single function that is called with faster and slower pokemon and moves-✅
         add second turn of combat (same function but with faster and slower reversed?)
         Add new moves being randomized after each turn.
-        Add cpu choosing a new move after each turn
-        Add functionality that determines moves with 0 powers effect based on the 'damage class attribute-
-        status- reduces the damage of the enemy's attack by 50-90%
-        physical- reduces accuracy of enemy's attack by 25-50%
-        special- increase critical hit chance to 50% for next attack
+        Once per turn, option to change moves? 
+        Add cpu choosing a new move after each turn.
+        Add functionality that determines moves with 0 powers effect based on the 'damage class attribute-✅
+        status- reduces the damage of the enemy's attack by 50-90% ✅
+        physical- reduces accuracy of enemy's attack by 25-50% ✅
+        special- increase critical hit chance to 50% for next attack ✅
         
         add critical hit chance (on a roll of 1-5, critical hit- power doubled) ✅
+
                     
 
             

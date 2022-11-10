@@ -7,6 +7,6 @@ export default function StatCard({pokemon, move}){
     <div className = 'crit-display'> CRITICAL CHANCE: {pokemon.critChance}%</div>
     <div className = 'move-name-display'> MOVE CHOSEN: {move.name}</div>
     <div className = 'move-accuracy-display'> ACCURACY: {move.accuracy}</div>
-    <div className = 'move-power-display'> POWER: {move.power}</div>
+    <div className = 'move-power-display'> {move.special ? `SPECIAL: ${move.special}` : `POWER: ${move.power ? `${move.power}` : ''}`}</div>
   </section>
 }

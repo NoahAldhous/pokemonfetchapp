@@ -27,15 +27,23 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [speedResult, setSpeedResult] = useState('')
   const [resultsMessage, setResultsMessage] = useState('')
-  const [damageResult, setDamageResult] = useState('')
   const [toHitResult, setToHitResult] = useState('')
+  const [damageResult, setDamageResult] = useState('')
+  const [secondTurnMessage, setSecondTurnMessage] = useState('')
+  const [secondResultsMessage, setSecondResultsMessage] = useState('')
+  const [secondToHitResult, setSecondToHitResult] = useState('')
+  const [secondDamageResult, setSecondDamageResult] = useState('')
 
   function resetBattleReport(){
     setIsOpen(false);
     setSpeedResult('');
     setResultsMessage('');
-    setDamageResult('');
     setToHitResult('');
+    setDamageResult('');
+    setSecondTurnMessage('');
+    setSecondResultsMessage('');
+    setSecondToHitResult('');
+    setSecondDamageResult('');
   }
 
   async function getPlayerPokemon(){
@@ -80,7 +88,6 @@ function App() {
     setChosenMove('')
     getPlayerPokemon(); 
     getComputerPokemon(); 
-    
   }
 
   function handleClose(){
@@ -125,7 +132,21 @@ function App() {
         }
         //DETERMING SPECIAL EFFECT
         else if(fasterMove.power === 0){
-          setDamageResult('special effect happens')
+          switch(fasterMove.special){
+            case 'defend':
+              slowerMove.power = slowerMove.power / 2;
+              setDamageResult(`${fasterPokemon.name} defends! Damage taken is reduced to ${slowerMove.power}`);
+              break;
+            case 'dodge':
+              slowerMove.accuracy = slowerMove.accuracy / 2;
+              setDamageResult(`${fasterPokemon.name} dodges! Opponent's accuracy is reduced to ${slowerMove.accuracy}`);
+              break;
+            case 'focus':
+              fasterPokemon.critChance = 25;
+              setDamageResult(`${fasterPokemon.name} focuses! Critical chance increased to ${fasterPokemon.critChance}%!`);
+              break;
+            default: return null
+          }
         }
       //ON MISS
       }else if(toHitRoll > fasterMove.accuracy){
@@ -133,6 +154,61 @@ function App() {
       }
 
       //SECOND TURN
+      //SECOND TURN
+      //SECOND TURN
+
+      if(slowerPokemon.currenthp <= 0){
+        setSecondTurnMessage(`${slowerPokemon.name} is fucking dead!`)
+        return null;
+      }else{
+        setSecondTurnMessage(`${slowerPokemon.name}'s turn! ${slowerPokemon.name} uses ${slowerMove.name}! ${slowerMove.accuracy}% chance to hit.`)
+      }
+      //DETERMINING IF ATTACK HITS OR MISSES
+      toHitRoll = Math.floor(Math.random() * 101);
+      console.log(`roll to hit: ${toHitRoll}`)
+
+      //ON CRIT
+      if(toHitRoll < slowerPokemon.critChance  && slowerMove.power > 0){
+        setSecondToHitResult('CRITICAL HIT! THE ATTACK DEALS DOUBLE DAMAGE');
+        fasterPokemon.currenthp = (fasterPokemon.currenthp - slowerMove.power * 2);
+        setSecondDamageResult(`${slowerPokemon.name}  deals ${slowerMove.power * 2} damage to ${fasterPokemon.name}!`) 
+
+      //ON HIT
+      }else if(slowerMove.accuracy === 100 || toHitRoll <= slowerMove.accuracy){
+        setSecondToHitResult(`The attack hits!`)
+
+        //DETERMINING DAMAGE EFFECT
+        if(slowerMove.power > 0){
+          fasterPokemon.currenthp = (fasterPokemon.currenthp - slowerMove.power)
+          setSecondDamageResult(`${slowerPokemon.name}  deals ${slowerMove.power} damage to ${fasterPokemon.name}!`)
+        }
+        //DETERMING SPECIAL EFFECT
+        else if(slowerMove.power === 0){
+          switch(slowerMove.special){
+            case 'defend':
+              fasterMove.power = fasterMove.power / 2;
+              setSecondDamageResult(`${slowerPokemon.name} defends! Damage taken is reduced to ${fasterMove.power}`);
+              break;
+            case 'dodge':
+              fasterMove.accuracy = fasterMove.accuracy / 2;
+              setSecondDamageResult(`${slowerPokemon.name} dodges! Opponent's accuracy is reduced to ${fasterMove.accuracy}`);
+              break;
+            case 'focus':
+              slowerPokemon.critChance = 25;
+              setSecondDamageResult(`${slowerPokemon.name} focuses! Critical chance increased to ${slowerPokemon.critChance}%!`);
+              break;
+            default: return null
+          }
+        }
+      //ON MISS
+      }else if(toHitRoll > slowerMove.accuracy){
+        setToHitResult(`The attack misses!`)
+      }
+      if(fasterPokemon.currenthp <= 0){
+        setSecondResultsMessage(`${fasterPokemon.name} is dead! Congratulations!`)
+      }else{
+        setSecondResultsMessage(`Both Pokemon remain standing! Next round, let's go!`)
+      }
 
     }
 
@@ -144,18 +220,19 @@ function App() {
       let playerSpeed = playerPokemon.speed + Math.floor(Math.random() * 180);
       let computerSpeed = computerPokemon.speed + Math.floor(Math.random() * 180);
       console.log(`player speed = ${playerSpeed} computer speed = ${computerSpeed}`)
+      
+      //COMPUTER ACTS FIRST
       if(playerSpeed < computerSpeed){
 
-        //COMPUTER ACTS FIRST
         resolveFight(computerPokemon, computerMove, playerPokemon, chosenMove)
        
+      //PLAYER ACTS FIRST
       }else if(playerSpeed > computerSpeed){
         console.log('player acts first!')
 
-        //PLAYER ACTS FIRST
         resolveFight(playerPokemon, chosenMove, computerPokemon, computerMove)
 
-        //SPEED IS EQUAL
+      //SPEED IS EQUAL
       }else if(playerPokemon.speed === computerPokemon.speed){
         let ranNum = Math.floor(Math.random() * 2)
         if(ranNum === 0){
@@ -176,7 +253,7 @@ function App() {
         <h1 className= 'heading'> Pokebrawlz</h1>
         <button className= 'help-button' onClick = {function(){setWantsHelp(true)}}>?</button>
         <HelpSection wantsHelp={ wantsHelp } setWantsHelp = {setWantsHelp}/>
-        <Modal open = {isOpen} onClose = {handleClose} results = {resultsMessage} speedResult = {speedResult} damageResult = {damageResult} toHitResult = {toHitResult}></Modal>
+        <Modal open = {isOpen} onClose = {handleClose} results = {resultsMessage} speedResult = {speedResult} damageResult = {damageResult} toHitResult = {toHitResult} secondTurnMessage = {secondTurnMessage} secondToHitResult = {secondToHitResult} secondDamageResult = {secondDamageResult} secondResultsMessage = {secondResultsMessage}></Modal>
         <section className = "pokemon-container">
         <StatCard pokemon = {playerPokemon} move = {chosenMove}/>
           <section className = "pokemon-info-container">
