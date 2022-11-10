@@ -123,7 +123,12 @@ function App() {
 
       //ON HIT
       }else if(fasterMove.accuracy === 100 || toHitRoll <= fasterMove.accuracy){
-        setToHitResult(`The attack hits!`)
+
+        if(fasterMove.power <= 0){
+          setToHitResult(``);
+        }else{
+          setToHitResult(`The attack hits!`)
+        }
 
         //DETERMINING DAMAGE EFFECT
         if(fasterMove.power > 0){
@@ -150,7 +155,11 @@ function App() {
         }
       //ON MISS
       }else if(toHitRoll > fasterMove.accuracy){
-        setToHitResult(`The attack misses! ${slowerPokemon.name}'s turn!`)
+        if(fasterMove.power <= 0){
+          setToHitResult(`Special effect doesn't work...`);
+        }else{
+          setToHitResult(`The attack misses! ${slowerPokemon.name}'s turn!`)
+        }
       }
 
       //SECOND TURN
@@ -158,7 +167,7 @@ function App() {
       //SECOND TURN
 
       if(slowerPokemon.currenthp <= 0){
-        setSecondTurnMessage(`${slowerPokemon.name} is fucking dead!`)
+        setSecondTurnMessage(`${slowerPokemon.name} is dead!`)
         return null;
       }else{
         setSecondTurnMessage(`${slowerPokemon.name}'s turn! ${slowerPokemon.name} uses ${slowerMove.name}! ${slowerMove.accuracy}% chance to hit.`)
@@ -175,8 +184,11 @@ function App() {
 
       //ON HIT
       }else if(slowerMove.accuracy === 100 || toHitRoll <= slowerMove.accuracy){
-        setSecondToHitResult(`The attack hits!`)
-
+        if(slowerMove.power <= 0){
+          setSecondToHitResult('')
+        }else{
+          setSecondToHitResult(`The attack hits!`)
+        }
         //DETERMINING DAMAGE EFFECT
         if(slowerMove.power > 0){
           fasterPokemon.currenthp = (fasterPokemon.currenthp - slowerMove.power)
@@ -202,7 +214,11 @@ function App() {
         }
       //ON MISS
       }else if(toHitRoll > slowerMove.accuracy){
-        setToHitResult(`The attack misses!`)
+        if(slowerMove.power <= 0){
+          secondToHitResult(`Special Effect doesn't work...`)
+        }else{
+          setSecondToHitResult(`The attack misses!`)
+        }
       }
       if(fasterPokemon.currenthp <= 0){
         setSecondResultsMessage(`${fasterPokemon.name} is dead! Congratulations!`)
