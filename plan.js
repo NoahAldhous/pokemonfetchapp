@@ -27,8 +27,9 @@
 
         SETTINGS 
             make a settings modal that can be opened and closed ✅
-            option to change color palette
-            option to change fonts (and maybe font size?)
+            option to change color palette ✅
+            option to change fonts ✅ (and maybe font size?)
+            store settings in local host so they are remembered on page reload
             reset high score 
             SUPER STRETCH GOAL- ADD PvP mode!
         

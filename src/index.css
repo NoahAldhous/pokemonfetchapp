@@ -2,6 +2,7 @@ body {
   --bg-color: #cc0000;
   --primary-color: #000412;
   --secondary-color: #ff0000;
+  --font: 'DotGothic16';
   background-color: var(--primary-color);
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,4 +15,14 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.alternate-color{
+  --bg-color: #3B4CCA; 
+  --primary-color: #FFDE00;
+  --secondary-color:#202970;
+}
+
+.accessible-font{
+  --font: 'Verdana';
 }

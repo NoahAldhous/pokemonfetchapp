@@ -13,7 +13,7 @@
     justify-content: center;
     align-items: center;
     color: var(--primary-color);
-    font-family: 'DotGothic16';
+    font-family: var(--font);
     letter-spacing: 2px;
     font-size: 2vw;
     border: 2px dashed var(--primary-color);
@@ -57,7 +57,7 @@
     margin-right: 1.5%;
     cursor: pointer;
     color: var(--primary-color);
-    font-family: 'DotGothic16';
+    font-family: var(--font);
     font-weight: bolder;
     border: none;
     background: none;

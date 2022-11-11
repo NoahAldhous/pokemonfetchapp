@@ -1,6 +1,6 @@
 .pokemon-move{
     color: var(--primary-color);
-    font-family: 'DotGothic16';
+    font-family: var(--font);
     letter-spacing: 2px;
     font-size: 1vw;
     border: 2px dashed var(--primary-color);
@@ -10,7 +10,7 @@
     padding: 1%;
     text-align: center;
     transition: 0.5s;
-    background-color: #ff0000;
+    background-color: var(--secondary-color);
 }
   
 .pokemon-move:hover{
@@ -36,7 +36,7 @@
   background-color: var(--secondary-color);
   padding: 0;
   position: absolute;
-  font-family: 'DotGothic16';
+  font-family: var(--font);
   letter-spacing: 2px;
   font-size: 1vw;
   left: 5%;

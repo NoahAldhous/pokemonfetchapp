@@ -1,7 +1,7 @@
 import './StatCard.css'
 
 export default function StatCard({pokemon, move}){
-    return <section className = 'move-info-container'>
+    return <section className = 'pokemon-stat-card'>
     <div className = 'hp-display'> HP: {pokemon.currenthp}/{pokemon.hp}</div>
     <div className = 'speed-display'> SPEED: {pokemon.speed}</div>
     <div className = 'crit-display'> CRITICAL CHANCE: {pokemon.critChance}%</div>
