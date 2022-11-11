@@ -31,15 +31,4 @@
     border: 2px dashed var(--secondary-color);
 }
 
-.move-info{
-  display: none;
-  background-color: var(--secondary-color);
-  padding: 0;
-  position: absolute;
-  font-family: var(--font);
-  letter-spacing: 2px;
-  font-size: 1vw;
-  left: 5%;
-  padding: 1px;
-}
 

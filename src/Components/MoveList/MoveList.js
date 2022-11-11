@@ -59,7 +59,7 @@ export default function MoveList({pokemon, pokemonMove, setMove, chosenMove, set
         }
 
         if(data.accuracy === null){
-            data.accuracy = 100;
+            data.accuracy = 90;
         }
         if(data.power === null){
            data.power = 0
@@ -68,7 +68,7 @@ export default function MoveList({pokemon, pokemonMove, setMove, chosenMove, set
         setMove({
             name: data.name,
             power: data.power,
-            accuracy: data.accuracy,
+            accuracy: data.accuracy - (Math.floor((data.power / 10) * 2)),
             special: getSpecial(data.power, data.damage_class.name)
         });
     }
@@ -96,7 +96,6 @@ export default function MoveList({pokemon, pokemonMove, setMove, chosenMove, set
             moves.map((move)=>{
                 
                 return <h3 onMouseEnter = {function(){getMoveData(move)}} onMouseLeave = {resetPlayerMove} onClick = {function(){handleButtonClick(move, pokemonMove)}} className = {['pokemon-move', `${move.name}`].join(' ')}>
-                <div className='move-info'>CHANCE TO HIT: {pokemonMove.accuracy}% {pokemonMove.special ? `SPECIAL: ${pokemonMove.special}` : `POWER: ${pokemonMove.power}`}</div>
                 {move.name.toUpperCase()}
                 </h3>
 

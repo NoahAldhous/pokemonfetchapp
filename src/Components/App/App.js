@@ -19,13 +19,23 @@ function App() {
   const [playerPokemon, setPlayerPokemon ] = useState(null);
   //const [playerScore, setPlayerScore] = useState(0);
   const [playerMove, setPlayerMove] = useState('');
-  const [chosenMove, setChosenMove] = useState('');
+  const [chosenMove, setChosenMove] = useState({
+    name: '',
+    accuracy: '',
+    power: '',
+    special: ''
+  });
 
 
   //cpu related state
   const [computerPokemon, setComputerPokemon ] = useState(null);
   //const [computerScore, setComputerScore] = useState(0);
-  const [computerMove, setComputerMove] = useState('');
+  const [computerMove, setComputerMove] = useState({
+    name: '',
+    accuracy: '',
+    power: '',
+    special: ''
+  });
 
 
   //battle report related state
@@ -58,8 +68,8 @@ function App() {
     setPlayerPokemon({
       name : data.name,
       moves : data.moves,
-      currenthp : data.stats[0].base_stat,
-      hp: data.stats[0].base_stat,
+      currenthp : data.stats[0].base_stat  * 2,
+      hp: data.stats[0].base_stat  * 2,
       speed: data.stats[5].base_stat,
       image: data.sprites.front_default,
       critChance: 5
@@ -73,8 +83,8 @@ function App() {
     setComputerPokemon({
       name : data.name,
       moves : data.moves,
-      currenthp : data.stats[0].base_stat,
-      hp: data.stats[0].base_stat,
+      currenthp : data.stats[0].base_stat * 2,
+      hp: data.stats[0].base_stat * 2,
       speed: data.stats[5].base_stat,
       image: data.sprites.front_default,
       critChance: 5
@@ -89,16 +99,36 @@ function App() {
 
   function handleReset(){
     resetBattleReport();
-    setPlayerMove('')
-    setChosenMove('')
+    setPlayerMove({
+      name: '',
+      accuracy: '',
+      power: '',
+      special: ''
+    })
+    setChosenMove({
+      name: '',
+      accuracy: '',
+      power: '',
+      special: ''
+    })
     getPlayerPokemon(); 
     getComputerPokemon(); 
   }
 
   function handleClose(){
     resetBattleReport();
-    setPlayerMove('')
-    setChosenMove('')
+    setPlayerMove({
+      name: '',
+      accuracy: '',
+      power: '',
+      special: ''
+    })
+    setChosenMove({
+      name: '',
+      accuracy: '',
+      power: '',
+      special: ''
+    })
     document.querySelector(`.active-button`).classList.toggle('active-button');
     if(playerPokemon.currenthp <= 0 || computerPokemon.currenthp <= 0){
     getPlayerPokemon(); 
@@ -277,14 +307,21 @@ function App() {
    
     return (
       <div className="App">
+        <section className = "header">
         <h1 className= 'heading'> Pokebrawlz</h1>
+        </section>
         <button className= 'settings-button' onClick = {function(){setWantsSettings(true)}} > <IoMdSettings/> </button>
         <SettingsModal wantsSettings = {wantsSettings} setWantsSettings = {setWantsSettings}/>
         <button className= 'help-button' onClick = {function(){setWantsHelp(true)}}>?</button>
         <HelpSection wantsHelp={ wantsHelp } setWantsHelp = {setWantsHelp}/>
         <Modal open = {isOpen} onClose = {handleClose} results = {resultsMessage} speedResult = {speedResult} damageResult = {damageResult} toHitResult = {toHitResult} secondTurnMessage = {secondTurnMessage} secondToHitResult = {secondToHitResult} secondDamageResult = {secondDamageResult} secondResultsMessage = {secondResultsMessage}></Modal>
-        <section className = "pokemon-container">
-        <StatCard pokemon = {playerPokemon} move = {chosenMove}/>
+        <section className = "hud-container">
+        <section className ="stat-container">
+          <h3 className = "stat-header">PLAYER POKEMON</h3>
+          <StatCard pokemon = {playerPokemon}/>
+          <h3 className = "stat-header">MOVE</h3>
+          <StatCard move = {chosenMove}/>
+        </section>
           <section className = "pokemon-info-container">
             <h2 className = 'pokemon-name'> {playerPokemon.name.toUpperCase()} </h2>
             <Image pokemon = {playerPokemon}/>
@@ -296,11 +333,18 @@ function App() {
             <Image pokemon = {computerPokemon}/>
             <MoveList pokemon = {computerPokemon} setMove = {setComputerMove} isPlayer = {false}/>
           </section>
-          <StatCard pokemon = {computerPokemon} move = {computerMove}/>
+          <section className ="stat-container">
+            <h3 className = "stat-header">CPU POKEMON</h3>
+            <StatCard pokemon = {computerPokemon}/>
+            <h3 className = "stat-header">MOVE</h3>
+            <StatCard move = {computerMove}/>
+          </section>
         </section>
-        <section className = 'pokemon-button-container'>
-          <button className = 'pokemon-button' onClick = {handleFight}> FIGHT</button>
-          <button className = 'pokemon-button' onClick = {handleReset}> RESET</button>
+        <section className = 'footer'>
+          <section className = 'pokemon-button-container'>
+            <button className = 'pokemon-button' onClick = {handleFight}> FIGHT</button>
+            <button className = 'pokemon-button' onClick = {handleReset}> RESET</button>
+          </section>
         </section>
       </div>
     );
