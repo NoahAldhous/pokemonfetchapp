@@ -9,6 +9,7 @@ import {IoMdSettings} from 'react-icons/io'
 import SettingsModal from '../SettingsModal/SettingsModal';
 
 function App() {
+
   // help section state 
   const [wantsHelp, setWantsHelp] = useState(true)
 
@@ -17,7 +18,7 @@ function App() {
 
   //player related state
   const [playerPokemon, setPlayerPokemon ] = useState(null);
-  //const [playerScore, setPlayerScore] = useState(0);
+  const [playerScore, setPlayerScore] = useState(localStorage.localPlayerScore);
   const [playerMove, setPlayerMove] = useState('');
   const [chosenMove, setChosenMove] = useState({
     name: '',
@@ -26,17 +27,15 @@ function App() {
     special: ''
   });
 
-
   //cpu related state
   const [computerPokemon, setComputerPokemon ] = useState(null);
-  //const [computerScore, setComputerScore] = useState(0);
+  const [computerScore, setComputerScore] = useState(localStorage.localComputerScore);
   const [computerMove, setComputerMove] = useState({
     name: '',
     accuracy: '',
     power: '',
     special: ''
   });
-
 
   //battle report related state
   const [isOpen, setIsOpen] = useState(false);
@@ -49,6 +48,22 @@ function App() {
   const [secondToHitResult, setSecondToHitResult] = useState('')
   const [secondDamageResult, setSecondDamageResult] = useState('')
   const [round, setRound] = useState(1);
+
+   //creating local storage for score and settings
+   useEffect( ()=>{
+    localStorage.setItem('localPlayerScore', playerScore)
+    localStorage.setItem('localComputerScore', computerScore)
+    if(localStorage.localPlayerScore === 'undefined'){
+      setPlayerScore(0);
+    }
+    
+    if(localStorage.localComputerScore === 'undefined'){
+      setComputerScore(0);
+    }
+    console.log(`${localStorage.localComputererScore}`)
+    console.log(typeof(localStorage.localComputerScore))
+    console.log(typeof(computerScore))
+  }, [playerScore, computerScore])
 
   function resetBattleReport(){
     setIsOpen(false);
@@ -177,11 +192,11 @@ function App() {
         else if(fasterMove.power === 0){
           switch(fasterMove.special){
             case 'defend':
-              slowerMove.power = slowerMove.power / 2;
+              slowerMove.power = Math.floor(slowerMove.power / 2);;
               setDamageResult(`${fasterPokemon.name} defends! Damage taken is reduced to ${slowerMove.power}`);
               break;
             case 'dodge':
-              slowerMove.accuracy = slowerMove.accuracy / 2;
+              slowerMove.accuracy = Math.floor(slowerMove.accuracy / 2);
               setDamageResult(`${fasterPokemon.name} dodges! Opponent's accuracy is reduced to ${slowerMove.accuracy}`);
               break;
             case 'focus':
@@ -200,21 +215,27 @@ function App() {
         }
       }
 
-      //SECOND TURN
-      //SECOND TURN
-      //SECOND TURN
-
+      //DETERMINING IF A POKEMON HAS WON, OR IF CONTINUE TO NEXT TURN
       if(playerPokemon.currenthp <= 0){
         setSecondTurnMessage(`Oh no, ${playerPokemon.name} is dead! Try again!`)
+        setComputerScore(Number(computerScore) +1)
+        localStorage.setItem('localComputerScore', computerScore)
         setRound(1)
         return null;
       }else if( computerPokemon.currenthp <= 0){
         setSecondTurnMessage(`${computerPokemon.name} is dead! Congratulations!`)
+        setPlayerScore(Number(playerScore) +1)
+        localStorage.setItem('localPlayerScore', playerScore)
         setRound(1)
         return null;
       }else{
         setSecondTurnMessage(`${slowerPokemon.name}'s turn! ${slowerPokemon.name} uses ${slowerMove.name}!`)
       }
+
+      //SECOND TURN
+      //SECOND TURN
+      //SECOND TURN
+
       //DETERMINING IF ATTACK HITS OR MISSES
       toHitRoll = Math.floor(Math.random() * 101);
       console.log(`roll to hit: ${toHitRoll}`)
@@ -241,11 +262,11 @@ function App() {
         else if(slowerMove.power === 0){
           switch(slowerMove.special){
             case 'defend':
-              fasterMove.power = fasterMove.power / 2;
+              fasterMove.power = Math.floor(fasterMove.power / 2);
               setSecondDamageResult(`${slowerPokemon.name} defends! Damage taken is reduced to ${fasterMove.power}`);
               break;
             case 'dodge':
-              fasterMove.accuracy = fasterMove.accuracy / 2;
+              fasterMove.accuracy = Math.floor(fasterMove.accuracy / 2);
               setSecondDamageResult(`${slowerPokemon.name} dodges! Opponent's accuracy is reduced to ${fasterMove.accuracy}`);
               break;
             case 'focus':
@@ -265,10 +286,14 @@ function App() {
       }
       if(computerPokemon.currenthp <= 0){
         setSecondResultsMessage(`${computerPokemon.name} is dead! Congratulations!`)
+        setPlayerScore(Number(playerScore) +1)
+        localStorage.setItem('localPlayerScore', playerScore)
         setRound(1)
       }
       else if(playerPokemon.currenthp <= 0){
         setSecondResultsMessage(`Oh no, ${playerPokemon.name} is dead! Try again!`)
+        setComputerScore(Number(computerScore) +1)
+        localStorage.setItem('localComputerScore', computerScore)
         setRound(1)
       }
       else{
@@ -317,7 +342,17 @@ function App() {
     return (
       <div className="App">
         <section className = "header">
+          {
+            localStorage.localPlayerScore === 'undefined'
+              ? <h3 className = 'score-counter'>PLAYER: 0</h3>
+              : <h3 className = 'score-counter'>PLAYER: {playerScore}</h3>
+          }
         <h1 className= 'heading'> Pokebrawlz</h1>
+          {
+            localStorage.localComputerScore === 'undefined'
+              ? <h3 className = 'score-counter'>CPU: 0</h3>
+              : <h3 className = 'score-counter'>CPU: {computerScore}</h3>
+          } 
         </section>
         <button className= 'settings-button' onClick = {function(){setWantsSettings(true)}} > <IoMdSettings/> </button>
         <SettingsModal wantsSettings = {wantsSettings} setWantsSettings = {setWantsSettings}/>
@@ -325,12 +360,12 @@ function App() {
         <HelpSection wantsHelp={ wantsHelp } setWantsHelp = {setWantsHelp}/>
         <Modal open = {isOpen} onClose = {handleClose} results = {resultsMessage} speedResult = {speedResult} damageResult = {damageResult} toHitResult = {toHitResult} secondTurnMessage = {secondTurnMessage} secondToHitResult = {secondToHitResult} secondDamageResult = {secondDamageResult} secondResultsMessage = {secondResultsMessage}></Modal>
         <section className = "hud-container">
-        <section className ="stat-container">
-          <h3 className = "stat-header">PLAYER POKEMON</h3>
-          <StatCard pokemon = {playerPokemon}/>
-          <h3 className = "stat-header">MOVE</h3>
-          <StatCard move = {chosenMove}/>
-        </section>
+          <section className ="stat-container">
+            <h3 className = "stat-header">PLAYER POKEMON</h3>
+            <StatCard pokemon = {playerPokemon}/>
+            <h3 className = "stat-header">MOVE</h3>
+            <StatCard move = {chosenMove}/>
+          </section>
           <section className = "pokemon-info-container">
             <h2 className = 'pokemon-name'> {playerPokemon.name.toUpperCase()} </h2>
             <Image pokemon = {playerPokemon}/>

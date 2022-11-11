@@ -12,9 +12,18 @@
   /* background-color: aqua; */
   height: 10%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-around;
   /* border: 1px solid pink; */
+}
+
+.score-counter{
+  color: var(--bg-color);
+  font-family: var(--font);
+  letter-spacing: 2px;
+  font-size: 2vw;
+  padding: 0;
+  margin: 0;
 }
 
 .heading{
@@ -25,8 +34,6 @@
   padding: 0;
   margin: 0;
 }
-
-
 
 .hud-container{
   display: flex;

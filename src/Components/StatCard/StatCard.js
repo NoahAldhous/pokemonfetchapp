@@ -4,17 +4,17 @@ export default function StatCard({pokemon, move}){
 
   if(pokemon){
     return <section className = 'pokemon-stat-card'>
-      <div className = 'name-display'> NAME: {pokemon.name.toUpperCase()}</div>
-      <div className = 'hp-display'> HP: {pokemon.currenthp}/{pokemon.hp}</div>
-      <div className = 'speed-display'> SPEED: {pokemon.speed}</div>
-      <div className = 'crit-display'> CRITICAL CHANCE: {pokemon.critChance}%</div>
+      <div className = 'display'> NAME: {pokemon.name.toUpperCase()}</div>
+      <div className = 'display'> HP: {pokemon.currenthp}/{pokemon.hp}</div>
+      <div className = 'display'> SPEED: {pokemon.speed}</div>
+      <div className = 'display'> CRITICAL CHANCE: {pokemon.critChance}%</div>
     </section>
   }else if(move){
     return <section className = 'pokemon-stat-card'>
-    <div className = 'name-display'> NAME: {move.name.toUpperCase()}</div>
-    <div className = 'move-accuracy-display'> ACCURACY: {move.accuracy}{move.accuracy ? `%` : ''}</div>
-    <div className = 'move-power-display'> {move.special ? `EFFECT: ${move.special}` : `POWER: ${move.power ? `${move.power}` : ''}`}</div>
-  </section>
+      <div className = 'display'> NAME: {move.name.toUpperCase()}</div>
+      <div className = 'display'> ACCURACY: {move.accuracy}{move.accuracy ? `%` : ''}</div>
+      <div className = 'display'> {move.special ? `EFFECT: ${move.special}` : `POWER: ${move.power ? `${move.power}` : ''}`}</div>
+    </section>
   }else{
     return null;
   }

@@ -13,5 +13,11 @@
     letter-spacing: 2px;
     font-weight: bold;
     font-size: 1vw;
-    padding-left: 1%;
-  }
+    padding: 0%;
+}
+
+.display{
+  padding: none;
+  margin: none;
+  margin-left: 3%;
+}
