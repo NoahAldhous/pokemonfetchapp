@@ -5,10 +5,15 @@ import MoveList from '../MoveList/MoveList';
 import Modal from '../Modal/Modal';
 import StatCard from '../StatCard/StatCard';
 import HelpSection from '../HelpSection/HelpSection';
+import {IoMdSettings} from 'react-icons/io'
+import SettingsModal from '../SettingsModal/SettingsModal';
 
 function App() {
   // help section state 
   const [wantsHelp, setWantsHelp] = useState(true)
+
+  // settings modal state  
+  const [wantsSettings, setWantsSettings] = useState(false)
 
   //player related state
   const [playerPokemon, setPlayerPokemon ] = useState(null);
@@ -166,9 +171,11 @@ function App() {
       //SECOND TURN
       //SECOND TURN
 
-      if(slowerPokemon.currenthp <= 0){
-        setSecondTurnMessage(`${slowerPokemon.name} is dead!`)
+      if(playerPokemon.currenthp <= 0){
+        setSecondTurnMessage(`Oh no, ${playerPokemon.name} is dead! Try again!`)
         return null;
+      }else if( computerPokemon.currenthp <= 0){
+        setSecondTurnMessage(`${computerPokemon.name} is dead! Congratulations!`)
       }else{
         setSecondTurnMessage(`${slowerPokemon.name}'s turn! ${slowerPokemon.name} uses ${slowerMove.name}! ${slowerMove.accuracy}% chance to hit.`)
       }
@@ -220,9 +227,13 @@ function App() {
           setSecondToHitResult(`The attack misses!`)
         }
       }
-      if(fasterPokemon.currenthp <= 0){
-        setSecondResultsMessage(`${fasterPokemon.name} is dead! Congratulations!`)
-      }else{
+      if(computerPokemon.currenthp <= 0){
+        setSecondResultsMessage(`${computerPokemon.name} is dead! Congratulations!`)
+      }
+      else if(playerPokemon.currenthp <= 0){
+        setSecondResultsMessage(`Oh no, ${playerPokemon.name} is dead! Try again!`)
+      }
+      else{
         setSecondResultsMessage(`Both Pokemon remain standing! Next round, let's go!`)
       }
 
@@ -267,6 +278,8 @@ function App() {
     return (
       <div className="App">
         <h1 className= 'heading'> Pokebrawlz</h1>
+        <button className= 'settings-button' onClick = {function(){setWantsSettings(true)}} > <IoMdSettings/> </button>
+        <SettingsModal wantsSettings = {wantsSettings} setWantsSettings = {setWantsSettings}/>
         <button className= 'help-button' onClick = {function(){setWantsHelp(true)}}>?</button>
         <HelpSection wantsHelp={ wantsHelp } setWantsHelp = {setWantsHelp}/>
         <Modal open = {isOpen} onClose = {handleClose} results = {resultsMessage} speedResult = {speedResult} damageResult = {damageResult} toHitResult = {toHitResult} secondTurnMessage = {secondTurnMessage} secondToHitResult = {secondToHitResult} secondDamageResult = {secondDamageResult} secondResultsMessage = {secondResultsMessage}></Modal>

@@ -55,7 +55,8 @@ export default function HelpSection({wantsHelp, setWantsHelp}){
                     <br/>
                     <b>POWER/EFFECT</b>: If a <b>MOVE</b> is an <b>ATTACK</b>, it will have a <b>POWER</b> stat. This is how many <b>HIT POINTS</b> it will take from the opponent if it hits. If the <b>ATTACK</b> is a <b>CRITICAL HIT</b>, the <b>POWER</b> is doubled (for one round only).
                     <br/>
-                    If a MOVE is a SPECIAL MOVE, it will have an EFFECT. How each EFFECT works is detailed below. SPECIAL MOVES always have a POWER of 0, and are not affected by CRITICAL HITS.
+                    <br/>
+                    If a <b>MOVE</b> is a <b>SPECIAL MOVE</b>, it will have an <b>EFFECT</b>. How each <b>EFFECT</b> works is detailed below. <b>SPECIAL MOVES</b> always have a <b>POWER</b> of 0, and are not affected by <b>CRITICAL HITS</b>.
                 </p>
                 <h3 className = 'help-section-subheader'>
                     SPECIAL EFFECTS
