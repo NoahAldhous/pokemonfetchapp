@@ -15,6 +15,8 @@ function App() {
 
   // settings modal state  
   const [wantsSettings, setWantsSettings] = useState(false)
+  const[alternateColor, setAlternateColor] = useState(localStorage.localAlternateColor)
+  const[accessibleFont, setAccessibleFont] = useState(localStorage.localAccessibleFont)
 
   //player related state
   const [playerPokemon, setPlayerPokemon ] = useState(null);
@@ -49,21 +51,25 @@ function App() {
   const [secondDamageResult, setSecondDamageResult] = useState('')
   const [round, setRound] = useState(1);
 
-   //creating local storage for score and settings
-   useEffect( ()=>{
+  //creating local storage for score and settings
+  useEffect( ()=>{
     localStorage.setItem('localPlayerScore', playerScore)
     localStorage.setItem('localComputerScore', computerScore)
     if(localStorage.localPlayerScore === 'undefined'){
       setPlayerScore(0);
     }
-    
     if(localStorage.localComputerScore === 'undefined'){
       setComputerScore(0);
     }
-    console.log(`${localStorage.localComputererScore}`)
-    console.log(typeof(localStorage.localComputerScore))
-    console.log(typeof(computerScore))
   }, [playerScore, computerScore])
+
+  //creating local storage for settings 
+  useEffect ( ()=> {
+    localStorage.setItem('localAlternateColor', alternateColor)
+    console.log(localStorage.localAlternateColor)
+    console.log(alternateColor)
+    localStorage.setItem('localAccessibleFont', accessibleFont)
+  }, [alternateColor, accessibleFont])
 
   function resetBattleReport(){
     setIsOpen(false);
@@ -355,7 +361,7 @@ function App() {
           } 
         </section>
         <button className= 'settings-button' onClick = {function(){setWantsSettings(true)}} > <IoMdSettings/> </button>
-        <SettingsModal wantsSettings = {wantsSettings} setWantsSettings = {setWantsSettings}/>
+        <SettingsModal wantsSettings = {wantsSettings} setWantsSettings = {setWantsSettings} alternateColor = {alternateColor} setAlternateColor = {setAlternateColor} accessibleFont = {accessibleFont} setAccessibleFont = {setAccessibleFont}/>
         <button className= 'help-button' onClick = {function(){setWantsHelp(true)}}>?</button>
         <HelpSection wantsHelp={ wantsHelp } setWantsHelp = {setWantsHelp}/>
         <Modal open = {isOpen} onClose = {handleClose} results = {resultsMessage} speedResult = {speedResult} damageResult = {damageResult} toHitResult = {toHitResult} secondTurnMessage = {secondTurnMessage} secondToHitResult = {secondToHitResult} secondDamageResult = {secondDamageResult} secondResultsMessage = {secondResultsMessage}></Modal>

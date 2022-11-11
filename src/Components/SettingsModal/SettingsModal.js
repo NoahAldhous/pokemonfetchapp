@@ -1,10 +1,7 @@
 import './SettingsModal.css'
-import { useState } from 'react';
 
-export default function SettingsModal({wantsSettings, setWantsSettings}){
-    
-    const[alternateColor, setAlternateColor] = useState(false)
-    const[accessibleFont, setAccessibleFont] = useState(false)
+export default function SettingsModal({wantsSettings, setWantsSettings, alternateColor, setAlternateColor, accessibleFont, setAccessibleFont}){
+
 
     function adjustSettings(setting){
         var element = document.body;
