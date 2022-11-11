@@ -48,6 +48,7 @@ function App() {
   const [secondResultsMessage, setSecondResultsMessage] = useState('')
   const [secondToHitResult, setSecondToHitResult] = useState('')
   const [secondDamageResult, setSecondDamageResult] = useState('')
+  const [round, setRound] = useState(1);
 
   function resetBattleReport(){
     setIsOpen(false);
@@ -129,8 +130,10 @@ function App() {
       power: '',
       special: ''
     })
-    document.querySelector(`.active-button`).classList.toggle('active-button');
+    let element = document.querySelector(`.active-button`)
+    if(element){element.classList.toggle('active-button')};
     if(playerPokemon.currenthp <= 0 || computerPokemon.currenthp <= 0){
+      console.log('pokemon dead')
     getPlayerPokemon(); 
     getComputerPokemon(); 
     }
@@ -142,7 +145,7 @@ function App() {
     function resolveFight(fasterPokemon, fasterMove, slowerPokemon, slowerMove){
 
       //DETERMING MESSAGE REGARDING WHICH POKEMON ACTS FIRST AND WHICH MOVE IS USED
-      setSpeedResult(`${fasterPokemon.name} acts first and uses ${fasterMove.name}! ${fasterMove.accuracy}% chance to hit.`);
+      setSpeedResult(`${fasterPokemon.name} acts first and uses ${fasterMove.name}!`);
 
       //FIRST TURN
 
@@ -203,11 +206,14 @@ function App() {
 
       if(playerPokemon.currenthp <= 0){
         setSecondTurnMessage(`Oh no, ${playerPokemon.name} is dead! Try again!`)
+        setRound(1)
         return null;
       }else if( computerPokemon.currenthp <= 0){
         setSecondTurnMessage(`${computerPokemon.name} is dead! Congratulations!`)
+        setRound(1)
+        return null;
       }else{
-        setSecondTurnMessage(`${slowerPokemon.name}'s turn! ${slowerPokemon.name} uses ${slowerMove.name}! ${slowerMove.accuracy}% chance to hit.`)
+        setSecondTurnMessage(`${slowerPokemon.name}'s turn! ${slowerPokemon.name} uses ${slowerMove.name}!`)
       }
       //DETERMINING IF ATTACK HITS OR MISSES
       toHitRoll = Math.floor(Math.random() * 101);
@@ -259,12 +265,15 @@ function App() {
       }
       if(computerPokemon.currenthp <= 0){
         setSecondResultsMessage(`${computerPokemon.name} is dead! Congratulations!`)
+        setRound(1)
       }
       else if(playerPokemon.currenthp <= 0){
         setSecondResultsMessage(`Oh no, ${playerPokemon.name} is dead! Try again!`)
+        setRound(1)
       }
       else{
         setSecondResultsMessage(`Both Pokemon remain standing! Next round, let's go!`)
+        setRound(round + 1)
       }
 
     }
@@ -325,13 +334,13 @@ function App() {
           <section className = "pokemon-info-container">
             <h2 className = 'pokemon-name'> {playerPokemon.name.toUpperCase()} </h2>
             <Image pokemon = {playerPokemon}/>
-            <MoveList pokemon = {playerPokemon} pokemonMove = {playerMove} setMove = {setPlayerMove} chosenMove = {chosenMove} setChosenMove = {setChosenMove} isPlayer = {true}/>
+            <MoveList pokemon = {playerPokemon} pokemonMove = {playerMove} setMove = {setPlayerMove} chosenMove = {chosenMove} setChosenMove = {setChosenMove} isPlayer = {true} round = {round}/>
           </section>
           <div className = 'versus-text'> VS </div>
           <section className = "pokemon-info-container">
             <h2 className = 'pokemon-name'> {computerPokemon.name.toUpperCase()} </h2>
             <Image pokemon = {computerPokemon}/>
-            <MoveList pokemon = {computerPokemon} setMove = {setComputerMove} isPlayer = {false}/>
+            <MoveList pokemon = {computerPokemon} setMove = {setComputerMove} isPlayer = {false} round = {round}/>
           </section>
           <section className ="stat-container">
             <h3 className = "stat-header">CPU POKEMON</h3>

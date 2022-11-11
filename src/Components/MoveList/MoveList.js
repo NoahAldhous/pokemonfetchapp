@@ -2,7 +2,7 @@ import './MoveList.css';
 import {useState, useEffect} from 'react'
 
 
-export default function MoveList({pokemon, pokemonMove, setMove, chosenMove, setChosenMove, isPlayer}){
+export default function MoveList({pokemon, pokemonMove, setMove, chosenMove, setChosenMove, isPlayer, round}){
     const [moves, setMoves] = useState([]);
     
 
@@ -27,7 +27,7 @@ export default function MoveList({pokemon, pokemonMove, setMove, chosenMove, set
     useEffect(() => {
         getMoves()
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [pokemon]);
+      }, [pokemon, round]);
     
     useEffect(() => {  
         getMoveData(moves[Math.floor(Math.random() * moves.length)])
@@ -95,9 +95,12 @@ export default function MoveList({pokemon, pokemonMove, setMove, chosenMove, set
         return(
             moves.map((move)=>{
                 
-                return <h3 onMouseEnter = {function(){getMoveData(move)}} onMouseLeave = {resetPlayerMove} onClick = {function(){handleButtonClick(move, pokemonMove)}} className = {['pokemon-move', `${move.name}`].join(' ')}>
-                {move.name.toUpperCase()}
-                </h3>
+                return <h3 onMouseEnter = {function(){getMoveData(move)}} 
+                            onMouseLeave = {resetPlayerMove} 
+                            onClick = {function(){handleButtonClick(move, pokemonMove)}} 
+                            className = {['pokemon-move', `${move.name}`].join(' ')}>
+                            {move.name.toUpperCase()}
+                        </h3>
 
             }
             )

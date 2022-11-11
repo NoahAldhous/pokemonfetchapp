@@ -11,7 +11,7 @@
                     highest speed is 180- so maybe make a random number between 1 + 180 and add SPEED MOD? ✅
                 Compares the power of move to HP of enemy- ✅
                     if it is higher, kills the pokemon!✅
-                    if it is lower, the other pokemon acts!
+                    if it is lower, the other pokemon acts!✅
                 Display all this as a BATTLE LOG MODAL✅
             Resets on close ✅
             Gives player and CPU 4 new moves 
@@ -38,8 +38,8 @@
         that is called with faster and slower pokemon and moves-✅
         add second turn of combat (same function but with faster and slower reversed?)✅
         Add new moves being randomized after each turn.
-        Adjust health values (currently thinking double the current hit points)
-        Adjust accuracy of attacks- if accuracy is 100 && Power > 0 - Accuracy = (Accuracy - Math.floor(Power / 10))
+        Adjust health values (currently thinking double the current hit points)✅
+        Adjust accuracy of attacks- if accuracy is 100 && Power > 0 - Accuracy = (Accuracy - Math.floor(Power / 10))✅
         ^This means more powerful moves have lower accuracy
         Add random bounding / adjust special effects- 
             Defend- reduces Power by 50-100%
