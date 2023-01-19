@@ -66,10 +66,35 @@ function App() {
   //creating local storage for settings 
   useEffect ( ()=> {
     localStorage.setItem('localAlternateColor', alternateColor)
-    console.log(localStorage.localAlternateColor)
-    console.log(alternateColor)
     localStorage.setItem('localAccessibleFont', accessibleFont)
   }, [alternateColor, accessibleFont])
+
+  function checkDefaultSettings(alternateColor, accessibleFont){
+    console.log(localStorage.localAlternateColor)
+    console.log(localStorage.localAccessibleFont)
+    var element = document.getElementsByClassName('App')[0]
+    console.log(element)
+    if(alternateColor === "true" && !element.classList.contains("alternate-color")){
+        element.classList.add("alternate-color");
+    }
+    if(accessibleFont === "true"  && !element.classList.contains("accessible-font")){
+        element.classList.add("accessible-font");
+    }
+    else{
+      if (element.classList.contains("alternate-color")){
+        element.classList.remove("alternate-color")
+      };
+      if (element.classList.contains("accessible-font")){
+        element.classList.remove("accessible-font")
+      }else{
+        return null;
+      }
+      }
+}
+
+useEffect( () => {
+    checkDefaultSettings(alternateColor, accessibleFont);
+},[]);
 
   function resetBattleReport(){
     setIsOpen(false);
@@ -346,7 +371,7 @@ function App() {
   if(playerPokemon && computerPokemon){
    
     return (
-      <div className="App">
+      <div id="App" className= {`App ${alternateColor === "true" ? 'alternate-color' : ''} ${accessibleFont === "true" ? 'accessible-font' : ''}`}>
         <section className = "header">
           {
             localStorage.localPlayerScore === 'undefined'
