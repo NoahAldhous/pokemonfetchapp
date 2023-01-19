@@ -23,16 +23,20 @@ export default function HelpSection({wantsHelp, setWantsHelp}){
        return <>
            <div className = 'help-section-overlay' onClick = {function(){setWantsHelp(false)}}></div>
            <div className = 'help-section'>
-               <h3 className = 'help-section-header'>
+               <h2 className = 'help-section-header'>
                 WELCOME TO POKEBRAWLZ
-               </h3>
+               </h2>
                <section className = 'help-section-text-container'>
                 <p className = 'help-section-text'>
                         This is a strategic combat game where you fight against a CPU with randomly picked pokemon and randomly picked moves! Which pokemon will come out on top?
                     </p>
-                <h3 className = 'help-section-subheader' onClick = {handleDropDown}>
-                    THE BASICS
-                </h3>
+                <button className = 'help-section-subheader' onClick = {handleDropDown}>
+                    <p className='help-section-button-text'>THE BASICS</p>
+                    { expandText
+                        ? <p className='help-section-button-text'>▼</p>
+                        : <p className='help-section-button-text'>►</p>
+                    }
+                </button>
                 { expandText 
                     ? <p className = 'help-section-text'>
                     The player (you) controls the pokemon on the left.  You have 4 random moves to choose from. 
@@ -41,9 +45,9 @@ export default function HelpSection({wantsHelp, setWantsHelp}){
                     </p>
                     : null
                 }
-                <h3 className = 'help-section-subheader'>
+                <button className = 'help-section-subheader'>
                     THE POKEMON
-                </h3>
+                </button>
                 <p className = 'help-section-text'>
                     Each pokemon has different stats, shown next to their picture. Higher stats give a pokemon an edge in battle, but they don't guarantee victory!
                     <br/>
@@ -56,9 +60,9 @@ export default function HelpSection({wantsHelp, setWantsHelp}){
                     <br/>
                     <b>CRITICAL CHANCE</b>: When a pokemon uses an <b>ATTACK</b>, there is a chance it is a <b>CRITICAL HIT</b>. It <b>DOUBLES</b> the <b>DAMAGE</b> dealt to the opponent's <b>HIT POINTS</b>.
                 </p>
-                <h3 className = 'help-section-subheader'>
+                <button className = 'help-section-subheader'>
                     THE MOVES
-                </h3>
+                </button>
                 <p className = 'help-section-text'>
                     Every move belongs to one of two categories: it is either an <b>ATTACK</b> or a <b>SPECIAL MOVE</b>. 
                     <br/>
@@ -77,9 +81,9 @@ export default function HelpSection({wantsHelp, setWantsHelp}){
                     <br/>
                     If a <b>MOVE</b> is a <b>SPECIAL MOVE</b>, it will have an <b>EFFECT</b>. How each <b>EFFECT</b> works is detailed below. <b>SPECIAL MOVES</b> always have a <b>POWER</b> of 0, and are not affected by <b>CRITICAL HITS</b>.
                 </p>
-                <h3 className = 'help-section-subheader'>
+                <button className = 'help-section-subheader'>
                     SPECIAL EFFECTS
-                </h3>
+                </button>
                 <p className = 'help-section-text'>
                    There are three kinds of SPECIAL MOVES: DEFEND, DODGE and FOCUS.
                    <br/>
@@ -92,21 +96,21 @@ export default function HelpSection({wantsHelp, setWantsHelp}){
                    <br/> 
                    FOCUS: If successful, a FOCUS move will increase your Pokemon's critical chance by 20% until the end of your next turn.
                 </p>
-                <h3 className = 'help-section-subheader'>
+                <button className = 'help-section-subheader'>
                     THE BATTLE REPORT
-                </h3>
+                </button>
                 <p className = 'help-section-text'>
                         
                 </p>
-                <h3 className = 'help-section-subheader'>
+                <button className = 'help-section-subheader'>
                     WHO GOES FIRST?
-                </h3>
+                </button>
                 <p className = 'help-section-text'>
                         
                 </p>
-                <h3 className = 'help-section-subheader'>
+                <button className = 'help-section-subheader'>
                     CONTINUING THE FIGHT
-                </h3>
+                </button>
                 <p className = 'help-section-text'>
                         
                 </p>
