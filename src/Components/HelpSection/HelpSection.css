@@ -57,6 +57,7 @@
     font-weight:bold;
     letter-spacing: 2px;
     font-size: 1.8vw;
+    cursor: pointer;
 }
 
 .help-section-text{

@@ -1,6 +1,22 @@
 import './HelpSection.css';
+import {useState} from 'react';
 
 export default function HelpSection({wantsHelp, setWantsHelp}){
+
+    const [expandText, setExpandText] = useState(false);
+
+    function handleDropDown(){
+        switch (expandText){
+            case true: 
+                setExpandText(false);
+                break;
+            case false:
+                setExpandText(true);
+                break;
+            default: return null;
+        }
+    }
+
    if(!wantsHelp){
        return null;
    }else{
@@ -14,14 +30,17 @@ export default function HelpSection({wantsHelp, setWantsHelp}){
                 <p className = 'help-section-text'>
                         This is a strategic combat game where you fight against a CPU with randomly picked pokemon and randomly picked moves! Which pokemon will come out on top?
                     </p>
-                <h3 className = 'help-section-subheader'>
+                <h3 className = 'help-section-subheader' onClick = {handleDropDown}>
                     THE BASICS
                 </h3>
-                <p className = 'help-section-text'>
+                { expandText 
+                    ? <p className = 'help-section-text'>
                     The player (you) controls the pokemon on the left.  You have 4 random moves to choose from. 
                     Hovering over the move will show you additional information.
                     Click on the move you want to use, then press the FIGHT button to see the results of the battle!
-                </p>
+                    </p>
+                    : null
+                }
                 <h3 className = 'help-section-subheader'>
                     THE POKEMON
                 </h3>
