@@ -34,6 +34,7 @@
             SUPER STRETCH GOAL- ADD PvP mode!
         
         REFACTORING
+        Remove transition time to button color changes.
         Condense both player and computer acting first into a single function 
         that is called with faster and slower pokemon and moves-✅
         add second turn of combat (same function but with faster and slower reversed?)✅
