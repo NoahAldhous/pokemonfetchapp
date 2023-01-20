@@ -1,5 +1,7 @@
 import './HelpSection.css';
 import {useState} from 'react';
+import DropDownMenu from './DropDownMenu';
+import { helpText } from './helpText';
 
 export default function HelpSection({wantsHelp, setWantsHelp}){
 
@@ -30,7 +32,8 @@ export default function HelpSection({wantsHelp, setWantsHelp}){
                 <p className = 'help-section-text'>
                         This is a strategic combat game where you fight against a CPU with randomly picked pokemon and randomly picked moves! Which pokemon will come out on top?
                     </p>
-                <button className = 'help-section-subheader' onClick = {handleDropDown}>
+                <DropDownMenu/>
+                {/* <button className = 'help-section-subheader' onClick = {handleDropDown}>
                     <p className='help-section-button-text'>THE BASICS</p>
                     { expandText
                         ? <p className='help-section-button-text'>▼</p>
@@ -113,7 +116,7 @@ export default function HelpSection({wantsHelp, setWantsHelp}){
                 </button>
                 <p className = 'help-section-text'>
                         
-                </p>
+                </p> */}
                </section>
                <button className = "close-button" onClick = {function(){setWantsHelp(false)}}>X</button>
            </div>
