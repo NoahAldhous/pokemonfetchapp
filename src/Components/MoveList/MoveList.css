@@ -9,7 +9,6 @@
     width: 75%;
     padding: 1%;
     text-align: center;
-    transition: 0.5s;
     background-color: var(--secondary-color);
 }
   

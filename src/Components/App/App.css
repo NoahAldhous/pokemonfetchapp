@@ -122,7 +122,6 @@
   border: 2px dashed var(--primary-color);
   border-radius: 15px;
   cursor: pointer;
-  transition: 0.5s;
   padding: 0.5% 2% 0.5% 2%;
   font-size: 3vh;
   width: 25%;

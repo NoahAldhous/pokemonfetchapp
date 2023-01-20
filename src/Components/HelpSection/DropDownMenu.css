@@ -1,3 +1,7 @@
+.help-section-button-container :hover{
+    background-color: rgba(1, 1, 1, 0.532);
+}
+
 .help-section-button{
     display: flex;
     flex-direction: row;
@@ -16,6 +20,10 @@
     margin: 0;
     border: none;
     border-bottom: 2px solid rgba(1, 1, 1, 0.488);
+}
+
+.help-section-button :hover{
+    background-color: rgba(1, 1, 1, 0);
 }
 
 .help-section-button-text{

@@ -17,13 +17,15 @@ export default function DropDownMenuButton({ subject }){
     }
 
     return <>
-        <button className = 'help-section-button' onClick = {handleDropDown}>
-            <p className='help-section-button-text'>{subject.header}</p>
-            { expandText
-                ? <p className='help-section-button-text'>▼</p>
-                : <p className='help-section-button-text'>►</p>
-            }
-        </button>
+        <div className = 'help-section-button-container'>
+            <button className = 'help-section-button' onClick = {handleDropDown}>
+                <p className='help-section-button-text'>{subject.header}</p>
+                { expandText
+                    ? <p className='help-section-button-text'>▼</p>
+                    : <p className='help-section-button-text'>►</p>
+                }
+            </button>
+        </div>
         { expandText 
             ? <section>
                 {subject.text.map( (blockOfText) => {
