@@ -94,6 +94,7 @@ function App() {
 
 useEffect( () => {
     checkDefaultSettings(alternateColor, accessibleFont);
+// eslint-disable-next-line react-hooks/exhaustive-deps
 },[]);
 
   function resetBattleReport(){
