@@ -14,7 +14,8 @@
     text-decoration: none;
     padding: none;
     margin: 0;
-
+    border: none;
+    border-bottom: 2px solid rgba(1, 1, 1, 0.488);
 }
 
 .help-section-button-text{
@@ -27,4 +28,5 @@
     font-weight:light;
     letter-spacing: 2px;
     font-size: 1.5vw;
+    margin: 2%;
 }

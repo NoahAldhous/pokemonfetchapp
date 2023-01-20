@@ -25,9 +25,13 @@ export default function DropDownMenuButton({ subject }){
             }
         </button>
         { expandText 
-            ? <p className = 'help-section-text'>
-                {subject.text}
-            </p>
+            ? <section>
+                {subject.text.map( (blockOfText) => {
+                    return <>
+                        <p className = 'help-section-text'>{blockOfText}</p>
+                    </>
+                } )}
+            </section>
             : null
         }   
     </>
