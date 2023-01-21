@@ -65,5 +65,5 @@
 }
 
 .modal-text-container{
-    overflow:scroll;
+    overflow-y:scroll;
 }

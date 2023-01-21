@@ -14,27 +14,28 @@
                     if it is lower, the other pokemon acts!✅
                 Display all this as a BATTLE LOG MODAL✅
             Resets on close ✅
-            Gives player and CPU 4 new moves 
+            Gives player and CPU 4 new moves ✅
             Write more semantic text for battle report (Player / CPU instead of Pokemon name?)
         TUTORIAL
             Help Section (modal display)✅
             Write detailed instructions
-            Add collapsable menus for the tutorials for ease of use.
+            Add collapsable menus for the tutorials for ease of use.✅
 
         SCORING    
-            Store Player and CPU score in Local Storage?
+            Store Player and CPU score in Local Storage? ✅
             High score tracking.
+            Perhaps game ends once you reach 6? Then shows the six pokemon you won with, and option to share as a tweet?
 
         SETTINGS 
             make a settings modal that can be opened and closed ✅
             option to change color palette ✅
             option to change fonts ✅ (and maybe font size?)
-            store settings in local host so they are remembered on page reload
+            store settings in local host so they are remembered on page reload ✅
             reset high score 
             SUPER STRETCH GOAL- ADD PvP mode!
         
         REFACTORING
-        Remove transition time to button color changes.
+        Remove transition time to button color changes. ✅
         Condense both player and computer acting first into a single function 
         that is called with faster and slower pokemon and moves-✅
         add second turn of combat (same function but with faster and slower reversed?)✅
