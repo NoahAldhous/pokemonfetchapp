@@ -16,6 +16,10 @@ export default function StatCard({pokemon, move}){
       <div className = 'display'> {move.special ? `EFFECT: ${move.special}` : `POWER: ${move.power ? `${move.power}` : ''}`}</div>
     </section>
   }else{
-    return null;
+    return <section className = 'pokemon-stat-card'>
+    <div className = 'display'> getting information...</div>
+    <div className = 'display'> getting information...</div>
+    <div className = 'display'> getting information...</div>
+  </section>
   }
 }
