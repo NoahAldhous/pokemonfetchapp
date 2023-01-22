@@ -70,8 +70,6 @@ function App() {
   }, [alternateColor, accessibleFont])
 
   function checkDefaultSettings(alternateColor, accessibleFont){
-    console.log(localStorage.localAlternateColor)
-    console.log(localStorage.localAccessibleFont)
     var element = document.getElementsByClassName('App')[0]
     console.log(element)
     if(alternateColor === "true" && !element.classList.contains("alternate-color")){
@@ -372,7 +370,7 @@ useEffect( () => {
   if(playerPokemon && computerPokemon){
    
     return (
-      <div id="App" className= {`App ${alternateColor === "true" ? 'alternate-color' : ''} ${accessibleFont === "true" ? 'accessible-font' : ''}`}>
+      <div className= {`App ${alternateColor === "true" ? 'alternate-color' : ''} ${accessibleFont === "true" ? 'accessible-font' : ''}`}>
         <section className = "header">
           {
             localStorage.localPlayerScore === 'undefined'
@@ -428,7 +426,7 @@ useEffect( () => {
   
   else{
     return (
-      <div className = "App">
+      <div className= {`App ${alternateColor === "true" ? 'alternate-color' : ''} ${accessibleFont === "true" ? 'accessible-font' : ''}`}>
         <p className = "loading-text"> FETCHING POKEMON...</p>
       </div>
     )

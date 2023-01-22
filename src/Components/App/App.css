@@ -92,6 +92,10 @@
   color: var(--bg-color);
   font-family: var(--font);
   letter-spacing: 2px;
+  font-size: 3vw;
+  position: absolute;
+  top:50%;
+  margin:0;
 }
 
 
