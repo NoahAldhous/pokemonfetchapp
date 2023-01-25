@@ -72,7 +72,8 @@ function App() {
 
   function checkDefaultSettings(alternateColor, accessibleFont){
     var element = document.getElementsByClassName('App')[0]
-    console.log(element)
+    console.log(`alternate color?:${alternateColor}`)
+    console.log(`accessible font?:${accessibleFont}`)
     if(alternateColor === "true" && !element.classList.contains("alternate-color")){
         element.classList.add("alternate-color");
         setSettingsTakenFromLocalStorage(true);
