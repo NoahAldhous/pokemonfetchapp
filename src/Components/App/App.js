@@ -17,6 +17,7 @@ function App() {
   const [wantsSettings, setWantsSettings] = useState(false)
   const[alternateColor, setAlternateColor] = useState(localStorage.localAlternateColor)
   const[accessibleFont, setAccessibleFont] = useState(localStorage.localAccessibleFont)
+  const[settingsTakenFromLocalStorage, setSettingsTakenFromLocalStorage] = useState(false) 
 
   //player related state
   const [playerPokemon, setPlayerPokemon ] = useState(null);
@@ -74,17 +75,22 @@ function App() {
     console.log(element)
     if(alternateColor === "true" && !element.classList.contains("alternate-color")){
         element.classList.add("alternate-color");
+        setSettingsTakenFromLocalStorage(true);
     }
     if(accessibleFont === "true"  && !element.classList.contains("accessible-font")){
         element.classList.add("accessible-font");
+        setSettingsTakenFromLocalStorage(true);
     }
     else{
       if (element.classList.contains("alternate-color")){
         element.classList.remove("alternate-color")
+        setSettingsTakenFromLocalStorage(true);
       };
       if (element.classList.contains("accessible-font")){
         element.classList.remove("accessible-font")
+        setSettingsTakenFromLocalStorage(true);
       }else{
+        setSettingsTakenFromLocalStorage(true);
         return null;
       }
       }
@@ -367,7 +373,7 @@ useEffect( () => {
     }
   }
 
-  if(playerPokemon && computerPokemon){
+  if(playerPokemon && computerPokemon && settingsTakenFromLocalStorage){
    
     return (
       <div className= {`App ${alternateColor === "true" ? 'alternate-color' : ''} ${accessibleFont === "true" ? 'accessible-font' : ''}`}>
