@@ -89,11 +89,11 @@ function App() {
         setSettingsTakenFromLocalStorage(true);
     }
     else{
-      if (element.classList.contains("alternate-color")){
+      if (accessibleFont === "false" && element.classList.contains("alternate-color")){
         element.classList.remove("alternate-color")
         setSettingsTakenFromLocalStorage(true);
       };
-      if (element.classList.contains("accessible-font")){
+      if (accessibleFont === "false" && element.classList.contains("accessible-font")){
         element.classList.remove("accessible-font")
         setSettingsTakenFromLocalStorage(true);
       }else{
