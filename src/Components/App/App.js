@@ -68,6 +68,12 @@ function App() {
   useEffect ( ()=> {
     localStorage.setItem('localAlternateColor', alternateColor)
     localStorage.setItem('localAccessibleFont', accessibleFont)
+    if(localStorage.localAlternateColor === 'undefined'){
+      setAlternateColor('false');
+    }
+    if(localStorage.localAccessibleFont === 'undefined'){
+      setAccessibleFont('false');
+    }
   }, [alternateColor, accessibleFont])
 
   function checkDefaultSettings(alternateColor, accessibleFont){
