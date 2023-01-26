@@ -20,6 +20,7 @@ export default function MoveList({pokemon, pokemonMove, setMove, chosenMove, set
                 moveList.push(currentMove);
             }
             setMoves(moveList);
+            console.log(moves)
             return moves
         }
     }
@@ -37,6 +38,7 @@ export default function MoveList({pokemon, pokemonMove, setMove, chosenMove, set
 
     async function getMoveData(move){
         let res = await fetch(move.url);
+        // console.log(`fecthing data from ${move.url}`)
         let data = await res.json();
         // console.log(data)
 
@@ -65,15 +67,25 @@ export default function MoveList({pokemon, pokemonMove, setMove, chosenMove, set
            data.power = 0
         }
 
-        setMove({
-            name: data.name,
-            power: data.power,
-            accuracy: data.accuracy - (Math.floor((data.power / 10) * 2)),
-            special: getSpecial(data.power, data.damage_class.name)
-        });
+        if(data){
+            setMove({
+                    name: data.name,
+                    power: data.power,
+                    accuracy: data.accuracy - (Math.floor((data.power / 10) * 2)),
+                    special: getSpecial(data.power, data.damage_class.name)
+            });
+            console.log(`pokemon ${pokemonMove}`)
+        }else {
+            console.log('oops!')
+            getMoveData(move)
+        };
     }
+
     function handleButtonClick(move, pokemonMove){
         if(isPlayer){
+            if(!pokemonMove){
+                console.log('oops!')
+            }
             setChosenMove(pokemonMove)
             document.querySelectorAll(".pokemon-move").forEach((item) => {
                 item.classList.forEach((className) => {
